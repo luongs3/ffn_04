@@ -1,0 +1,22 @@
+{
+  "name": "ffn_04",
+  "description": "",
+  "main": "",
+  "authors": [
+    "luongs3 <luongr3@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/luongs3/ffn_04",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "react": "^15.2.1"
+  }
+}
