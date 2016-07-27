@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\{Rank, Match, League};
+use App\Models\Rank, Match, League;
 
 class Season extends Model
 {
@@ -17,7 +17,7 @@ class Season extends Model
 
     public function rank()
     {
-        return $this->belongsTo(Rank::class, 'seaon_id');
+        return $this->belongsTo(Rank::class, 'season_id');
     }
 
     public function matches()

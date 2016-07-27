@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\{Season, Team};
+use App\Models\Season, Team;
 
 class Rank extends Model
 {
