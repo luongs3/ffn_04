@@ -35,3 +35,9 @@ Route::group(['prefix' => 'auth', 'middleware' => 'web'], function() {
     ]);
     Route::get('/{social}/callback', 'Auth\SocialiteController@handleProviderCallback');
 });
+
+/*
+ * Football News
+ */
+Route::get('news', 'NewsController@index');
+Route::get('news/{slug}', 'NewsController@show');
