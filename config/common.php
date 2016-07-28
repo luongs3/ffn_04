@@ -3,6 +3,19 @@ return [
     'user' => [
         'avatar_path' => '/upload/',
         'default_avatar' => '/images/default.png',
+        'user_limit' => 30,
+        'role' => [
+            'user' => 0,
+            'team' => 1,
+            'admin' => 2,
+        ],
+        'confirmed' => [
+            'is_confirm' => 1,
+            'not_confirm' => 0,
+        ],
+        'confirmation_code' => [
+            'length' => 10,
+        ],
     ],
     'player' => [
         'role' => [

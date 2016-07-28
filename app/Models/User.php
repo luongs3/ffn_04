@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Hash;
 
 class User extends Authenticatable
 {
@@ -20,6 +21,8 @@ class User extends Authenticatable
         'password',
         'role',
         'point',
+        'confirmed',
+        'confirmation_code',
     ];
 
     /**
@@ -51,8 +54,39 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class, 'user_id');
     }
+
     public function socialAccount()
     {
         return $this->belongsTo(SocialAccount::class);
+    }
+
+    public function scopeUser($query)
+    {
+        return $query->where('role', config('common.user.role.user'));
+    }
+
+    public function scopeAdmin($query)
+    {
+        return $query->where('role', config('common.user.role.admin'));
+    }
+
+    public function scopeTeam($query)
+    {
+        return $query->where('role', config('common.user.role.team'));
+    }
+
+    public function scopeConfirmationCode($query, $confirmationCode)
+    {
+        return $query->where('confirmation_code', $confirmationCode);
+    }
+
+    public function scopeUserEmail($query, $socialEmail)
+    {
+        return $query->where('email', $socialEmail);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }
