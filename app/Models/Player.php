@@ -22,4 +22,13 @@ class Player extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function getRoleAttribute($value)
+    {
+        if($value == config('common.player.role.footballer')) {
+            return trans('label.footballer');
+        }
+
+        return trans('label.coach');
+    }
 }

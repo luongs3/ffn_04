@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+//Route::group(['middleware' => 'auth'], function () {
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('/player/export', ['as' => 'admin.players.export', 'uses' => 'Admin\PlayerController@export']);
+        Route::resource('players', 'Admin\PlayerController');
+    });
+//});
