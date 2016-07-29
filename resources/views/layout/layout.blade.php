@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="csrf_token" content="{{ csrf_token() }}">
-    <title>{{ $title || trans('label.football_news') }}</title>
+    <title>{{ $title or trans('label.football_news') }}</title>
     @include('layout.styles')
 </head>
 <body>
