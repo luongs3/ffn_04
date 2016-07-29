@@ -17,6 +17,7 @@
   ],
   "dependencies": {
     "bootstrap": "^3.3.7",
-    "react": "^15.2.1"
+    "react": "^15.2.1",
+    "masonry": "^4.1.0"
   }
 }
