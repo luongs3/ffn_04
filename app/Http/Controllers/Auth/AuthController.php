@@ -92,7 +92,7 @@ class AuthController extends Controller
         $email = $request->input('email');
         $password = $request->input('password');
 
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'confirmed' => config('common.user.comfirmed.is_confirm')], $request->has('remember'))) {
+        if (Auth::attempt(['email' => $email, 'password' => $password, 'confirmed' => config('common.user.confirmed.is_confirm')], $request->has('remember'))) {
             return redirect('/');
         } else {
             return redirect()->back()->withErrors(trans('message.login_error'));
