@@ -43,7 +43,7 @@
                                     {!! Form::checkbox('select', $row['id'], false, ['class' => 'select']) !!}
                                 </td>
                                 @foreach ($columns as $column)
-                                    @if ($column == 'image' || $column == 'avatar')
+                                    @if ($column == 'image' || $column == 'avatar' || $column == 'logo')
                                         <td><img class="img img-thumbnail img-row" src="{{ asset($row[$column]) }}"></td>
                                     @else
                                         <td>{{ $row[$column] }}</td>
