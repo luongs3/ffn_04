@@ -14,10 +14,24 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-//Route::group(['middleware' => 'auth'], function () {
+Route::auth();
+Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/player/export', ['as' => 'admin.players.export', 'uses' => 'Admin\PlayerController@export']);
         Route::resource('players', 'Admin\PlayerController');
     });
-//});
+});
+Route::get('/home', 'HomeController@index');
+Route::get('/login', 'Auth\AuthController@getLogin');
+Route::post('/login', 'Auth\AuthController@postLogin');
+Route::get('/logout', 'HomeController@getLogout');
+Route::get('/register', 'Auth\AuthController@getRegister');
+Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);
+Route::get('/register/verify/{confirmationCode}', 'Auth\AuthController@confirm');
+Route::group(['prefix' => 'auth', 'middleware' => 'web'], function() {
+    Route::get('/{social}', [
+        'as' => '{social}.login',
+        'uses' => 'Auth\SocialiteController@redirectToProvider'
+    ]);
+    Route::get('/{social}/callback', 'Auth\SocialiteController@handleProviderCallback');
+});

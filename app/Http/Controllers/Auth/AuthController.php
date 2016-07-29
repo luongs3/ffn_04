@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Models\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Http\Request;
+use Auth;
+use App\Repositories\User\UserRepositoryInterface;
 
 class AuthController extends Controller
 {
@@ -29,15 +34,16 @@ class AuthController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
-
+    protected $userRepository;
     /**
      * Create a new authentication controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -68,5 +74,69 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function getLogin()
+    {
+        return view('auth.login');
+    }
+
+    public function postLogin(LoginRequest $request)
+    {
+        $validator = Validator::make($request->all(), $request->rules());
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $email = $request->input('email');
+        $password = $request->input('password');
+
+        if (Auth::attempt(['email' => $email, 'password' => $password, 'confirmed' => config('common.user.comfirmed.is_confirm')], $request->has('remember'))) {
+            return redirect('/');
+        } else {
+            return redirect()->back()->withErrors(trans('message.login_error'));
+        }
+    }
+
+    public function getRegister()
+    {
+        return view('auth.register');
+    }
+
+    public function postRegister(RegisterRequest $request)
+    {
+        return $this->register($request);
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $validator = Validator::make($request->all(), $request->rules());
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $confirmationCode = str_random(config('common.user.confirmation_code.length'));
+
+        try {
+            $user = $this->userRepository->create($request, $confirmationCode);
+        } catch (Exception $e) {
+            return redirect('/')->withError($e->getMessage());
+        }
+
+        return redirect()->back()->withErrors(trans('message.register_active'));
+    }
+
+    public function confirm($confirmationCode)
+    {
+        try {
+            $user = $this->userRepository->updateConfirm($confirmationCode);
+            Auth::login($user);
+
+            return redirect('/');
+        } catch (Exception $e) {
+            return redirect('/')->withError($e->getMessage());
+        }
     }
 }

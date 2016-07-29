@@ -5,10 +5,9 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">{{ trans('label.welcome') }}</div>
-
+                <div class="panel-heading">{{ trans('label.dashboard') }}</div>
                 <div class="panel-body">
-                    {{ trans('message.home') }}
+                    {{ trans('mesage.home_login') }}
                 </div>
             </div>
         </div>
