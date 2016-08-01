@@ -19,7 +19,6 @@ class Post extends Model
         'slug',
         'title',
         'content',
-        'excerpt',
         'published_at',
     ];
 
@@ -28,8 +27,21 @@ class Post extends Model
         $this->attributes['title'] = $value;
 
         if (!$this->exists) {
-            $this->attributes['slug'] = str_slug($value);
+            $this->setUniqueSlug($value, '');
         }
+    }
+
+    public function setUniqueSlug($title, $extra)
+    {
+        $slug = str_slug($title . '-' . $extra);
+
+        if (static::whereSlug($slug)->exists()) {
+            $this->setUniqueSlug($title, $extra + 1);
+            
+            return;
+        }
+
+        $this->attributes['slug'] = $slug;
     }
 
     public function scopePublished($query)
@@ -70,5 +82,10 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class, 'commentable_id');
+    }
+
+    public function isOwnedBy($user)
+    {
+        return $this->user_id == $user->id;
     }
 }

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Repositories\Post\PostRepositoryInterface;
-
+use Alert;
 use App\Http\Requests;
+use App\Repositories\Post\PostRepositoryInterface;
 
 class NewsController extends Controller
 {
