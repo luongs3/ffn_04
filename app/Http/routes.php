@@ -21,6 +21,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('players', 'Admin\PlayerController');
         Route::get('/teams/export', ['as' => 'admin.teams.export', 'uses' => 'Admin\TeamController@export']);
         Route::resource('teams', 'Admin\TeamController');
+        Route::get('/leagues/export', ['as' => 'admin.leagues.export', 'uses' => 'Admin\LeagueController@export']);
+        Route::resource('leagues', 'Admin\LeagueController');
+        Route::get('/seasons/export', ['as' => 'admin.seasons.export', 'uses' => 'Admin\SeasonController@export']);
+        Route::resource('seasons', 'Admin\SeasonController');
     });
 });
 Route::get('/home', 'HomeController@index');

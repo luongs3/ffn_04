@@ -58,4 +58,7 @@ return [
     'league' => 'League',
     'logo' => 'Logo',
     'team_profile' => 'Team Profile',
+    'league_profile' => 'League Profile',
+    'season_profile' => 'Season Profile',
+    'current' => 'Current',
 ];

@@ -12,6 +12,8 @@ use App\Repositories\User\UserRepository;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Repositories\League\LeagueRepositoryInterface;
 use App\Repositories\League\LeagueRepository;
+use App\Repositories\Season\SeasonRepositoryInterface;
+use App\Repositories\Season\SeasonRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -36,5 +38,6 @@ class RepositoryServiceProvider extends ServiceProvider
         App::bind(TeamRepositoryInterface::class, TeamRepository::class);
         App::bind(UserRepositoryInterface::class, UserRepository::class);
         App::bind(LeagueRepositoryInterface::class, LeagueRepository::class);
+        App::bind(SeasonRepositoryInterface::class, SeasonRepository::class);
     }
 }
