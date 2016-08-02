@@ -28,10 +28,12 @@ abstract class BaseRepository
             array_unshift($data['columns'], 'id');
 
             if (count($rows)) {
+                $data['ids'] = [];
                 foreach ($rows as $key => $row) {
+                    $data['ids'][$key] = $row['id'];
                     $rows[$key] = $row->where('id', $row['id'])->first($data['columns']);
                 }
-                $data['from'] = ($rows->currentPage() - 1) * 10 + 1;
+                $data['from'] = ($rows->currentPage() - 1) * config('common.limit.page_limit') + 1;
                 $data['to'] = $data['from'] + $rows->count() - 1;
             }
 
@@ -134,4 +136,39 @@ abstract class BaseRepository
         })->export('csv');
     }
 
+    public function uploadImage($input, $imageField, $id = null)
+    {
+        if (empty($input['image_hidden'])) {
+            if (isset($input['image'])) {
+                if (!empty($id)) {
+                    $data = $this->model->find($id);
+
+                    if (!empty($data[$imageField]) && file_exists(public_path($data[$imageField]))) {
+                        unlink(public_path($data[$imageField]));
+                    }
+                }
+
+                $destination = public_path(config('common.user.avatar_path'));
+                $name = md5($id) . uniqid() . $input['image']->getClientOriginalName();
+                $file = $input['image']->move($destination, $name);
+                $checkError = $input['image']->getError();
+
+                if ($checkError != "UPLOADERROK") {
+                    return ['error' => trans('message.file_error')];
+                }
+
+                $input[$imageField] = config('common.user.avatar_path') . $file->getFilename();
+            } else {
+                $input[$imageField] = config('common.user.default_avatar');
+            }
+        }
+
+        unset($input['image_hidden']);
+
+        if ($imageField != 'image') {
+            unset($input['image']);
+        }
+
+        return $input;
+    }
 }

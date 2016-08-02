@@ -6,6 +6,7 @@ $(document).ready(function () {
             }
         }
     });
+
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -20,9 +21,11 @@ $(document).ready(function () {
         $('#image_hidden').val('');
         readURL(this);
     });
+
     $("#btn-back").click(function () {
         window.history.back();
     });
+
     $('section').on('click', '#btn-delete', function (event) {
         var response = confirm($(this).data('alert'));
         if (response) {
@@ -48,21 +51,39 @@ $(document).ready(function () {
             });
         }
     });
+
     $('section').on('click', '#btn-create', function (event) {
         window.location.replace($(this).data('url'));
     });
+
     $('section').on('click', '#btn-export', function (event) {
         window.location.href = $(this).data('url');
     });
+
     $('section').on('click', '.select-all', function (event) {
         $("input[type='checkbox']").prop('checked', !$("input[type='checkbox']").prop('checked'));
     });
+
     $('section').on('click', '#btn-destroy', function (event) {
         $.ajax({
             type: 'DELETE',
             url: $(this).data('url'),
             success: function (data, status) {
                 window.location.replace($('#btn-destroy').data('redirect'));
+            }
+        });
+    });
+
+    $('section').on('click', '#select-players .pagination li a', function (event) {
+        event.preventDefault();
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('href'),
+            success: function (data, status) {
+                var wrapper= document.createElement('div');
+                wrapper.innerHTML = data;
+                var table= wrapper.find('.select-players-class');
+                $('#select-players').html(table);
             }
         });
     });

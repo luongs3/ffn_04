@@ -1,7 +1,7 @@
 <?php
 return [
     'user' => [
-        'avatar_path' => '/upload/',
+        'avatar_path' => 'upload/',
         'default_avatar' => '/images/default.png',
         'user_limit' => 30,
         'role' => [
@@ -26,6 +26,7 @@ return [
     'limit' => [
         'page_limit' => 10,
         'name_max' => 60,
+        'description_max' => 60000,
         'image_size' => 5000,
     ],
 ];

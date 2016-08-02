@@ -35,7 +35,7 @@ class PlayerRepository extends BaseRepository implements PlayerRepositoryInterfa
                         $rows[$key]['team'] = $team->name;
                     }
                 }
-                $data['from'] = ($rows->currentPage() - 1) * 10 + 1;
+                $data['from'] = ($rows->currentPage() - 1) * config('common.limit.page_limit') + 1;
                 $data['to'] = $data['from'] + $rows->count() - 1;
             }
 
@@ -51,7 +51,7 @@ class PlayerRepository extends BaseRepository implements PlayerRepositoryInterfa
 
     public function store($input)
     {
-        $input = $this->uploadImage($input);
+        $input = $this->uploadImage($input, 'image');
 
         try {
             $data = $this->model->create($input);
@@ -68,7 +68,7 @@ class PlayerRepository extends BaseRepository implements PlayerRepositoryInterfa
 
     public function update($input, $id)
     {
-        $input = $this->uploadImage($input, $id);
+        $input = $this->uploadImage($input, 'image', $id);
 
         try {
             $data = $this->model->where('id', $id)->update($input);
@@ -81,38 +81,6 @@ class PlayerRepository extends BaseRepository implements PlayerRepositoryInterfa
         } catch (Exception $ex) {
             return ['error' => $ex->getMessage()];
         }
-    }
-
-    public function uploadImage($input, $id = null)
-    {
-        if (empty($input['image_hidden'])) {
-            if (isset($input['image'])) {
-                if (!empty($id)) {
-                    $player = $this->model->find($id);
-
-                    if (!empty($player->image) && file_exists(public_path($player->image))) {
-                        unlink(public_path($player->image));
-                    }
-                }
-
-                $destination = public_path(config('common.user.avatar_path'));
-                $name = md5($id) . uniqid() . $input['image']->getClientOriginalName();
-                $file = $input['image']->move($destination, $name);
-                $checkError = $input['image']->getError();
-
-                if ($checkError != "UPLOADERROK") {
-                    return ['error' => trans('message.file_error')];
-                }
-
-                $input['image'] = config('common.user.avatar_path') . $file->getFilename();
-            } else {
-                $input['image'] = config('common.user.default_avatar');
-            }
-        }
-
-        unset($input['image_hidden']);
-
-        return $input;
     }
 
     public function getPlayerRoles()

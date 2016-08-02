@@ -18,8 +18,9 @@ return [
     'login_error' => 'Email or Password wrong, or can my account do not active',
     'register_active' => 'Active my account in my mail !',
     'create_user_fail' => 'Create account is failed, please check input !',
-    'item_not_exist' => 'Object is not exsit !',
     'home_login' => 'You are logged in!',
     'home' => 'Your Application is Landing Page.',
     'click_link_reset_password' => 'Click here to reset your password:',
+    'create_team_successfully' => 'Create team successfully',
+    'update_team_successfully' => 'Update team successfully',
 ];

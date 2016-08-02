@@ -35,29 +35,29 @@
                     <th title="edit">{{ trans('label.edit') }}</th>
                 </tr>
                 </thead>
-                    <tbody>
-                    @if (count($rows))
-                        @foreach ($rows as $key => $row)
-                            <tr>
-                                <td>
-                                    {!! Form::checkbox('select', $row['id'], false, ['class' => 'select']) !!}
-                                </td>
-                                @foreach ($columns as $column)
-                                    @if ($column == 'image' || $column == 'avatar' || $column == 'logo')
-                                        <td><img class="img img-thumbnail img-row" src="{{ asset($row[$column]) }}"></td>
-                                    @else
-                                        <td>{{ $row[$column] }}</td>
-                                    @endif
-                                @endforeach
-                                <td>
-                                    <a href="{{ route('admin.' . $subject . '.edit', ['id' => $row['id']]) }}" title="edit">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-                    </tbody>
+                <tbody>
+                @if (count($rows))
+                    @foreach ($rows as $key => $row)
+                        <tr>
+                            <td>
+                                {!! Form::checkbox('select', $row['id'], false, ['class' => 'select']) !!}
+                            </td>
+                            @foreach ($columns as $column)
+                                @if ($column == 'image' || $column == 'avatar' || $column == 'logo')
+                                    <td><img class="img img-thumbnail img-row" src="{{ asset($row[$column]) }}"></td>
+                                @else
+                                    <td>{{ $row[$column] }}</td>
+                                @endif
+                            @endforeach
+                            <td>
+                                <a href="{{ route('admin.' . $subject . '.edit', ['id' => $row['id']]) }}" title="edit">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                @endif
+                </tbody>
             </table>
             @if (count($rows))
                 {!! $rows->render() !!}

@@ -17,8 +17,10 @@ Route::get('/', function () {
 Route::auth();
 Route::group(['middleware' => 'auth'], function () {
     Route::group(['prefix' => 'admin'], function () {
-        Route::get('/player/export', ['as' => 'admin.players.export', 'uses' => 'Admin\PlayerController@export']);
+        Route::get('/players/export', ['as' => 'admin.players.export', 'uses' => 'Admin\PlayerController@export']);
         Route::resource('players', 'Admin\PlayerController');
+        Route::get('/teams/export', ['as' => 'admin.teams.export', 'uses' => 'Admin\TeamController@export']);
+        Route::resource('teams', 'Admin\TeamController');
     });
 });
 Route::get('/home', 'HomeController@index');
