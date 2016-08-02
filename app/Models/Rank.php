@@ -23,6 +23,6 @@ class Rank extends Model
 
     public function teams()
     {
-        return $this->hasMany(Team::class, 'team_id');
+        return $this->hasMany(Team::class, 'id');
     }
 }
