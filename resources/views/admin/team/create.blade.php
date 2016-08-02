@@ -32,7 +32,7 @@
             {!! Form::label('image', trans('label.image'), ['class' => 'control-label']) !!}
             {!! Form::hidden('image_hidden', null, ['class' => 'form-control', 'id' => 'image_hidden']) !!}
             {!! Form::file('image', ['class' => 'form-control']) !!}
-            <img class="img img-responsive" id="image_url" src="">
+            <img class="img img-responsive" id="image-url" src="">
         </div>
     </div>
     <div id="select-players" class="select-players-class">

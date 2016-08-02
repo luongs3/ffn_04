@@ -32,7 +32,7 @@
             {!! Form::label('image', trans('label.image'), ['class' => 'control-label']) !!}
             {!! Form::hidden('image_hidden', $player['image'], ['class' => 'form-control', 'id' => 'image_hidden']) !!}
             {!! Form::file('image', ['class' => 'form-control']) !!}
-            <img class="img img-responsive" id="image_url" src="{{ asset($player['image']) }}">
+            <img class="img img-responsive" id="image-url" src="{{ asset($player['image']) }}">
         </div>
     </div>
     {!! Form::close() !!}
