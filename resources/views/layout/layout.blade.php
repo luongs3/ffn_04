@@ -12,11 +12,7 @@
 <body>
     <div id="fb-root"></div>
     <div>
-        @if (isset(Auth::user()->role) && Auth::user()->role == config('common.user.role.supervisor'))
-            @include('layout.left-sidebar')
-        @else
-            <div class="col-sm-2"></div>
-        @endif
+        <div class="col-sm-2"></div>
         <div class="col-sm-8">
             <section>
                 @include('layout.result')

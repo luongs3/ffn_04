@@ -23,4 +23,8 @@ return [
     'click_link_reset_password' => 'Click here to reset your password:',
     'create_team_successfully' => 'Create team successfully',
     'update_team_successfully' => 'Update team successfully',
+    'create_league_successfully' => 'Create league successfully',
+    'update_league_successfully' => 'Update league successfully',
+    'create_season_successfully' => 'Create season successfully',
+    'update_season_successfully' => 'Update season successfully',
 ];
