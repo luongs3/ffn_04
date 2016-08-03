@@ -115,20 +115,6 @@ class TeamRepository extends BaseRepository implements TeamRepositoryInterface
         }
     }
 
-    public function lists()
-    {
-        try {
-            $data = $this->model->lists('name', 'id');
-
-            if (!count($data)) {
-                return ['error' => trans('message.listing_error')];
-            }
-            return $data;
-        } catch (Exception $ex) {
-            return ['error' => $ex->getMessage()];
-        }
-    }
-
     public function delete($ids)
     {
         try {

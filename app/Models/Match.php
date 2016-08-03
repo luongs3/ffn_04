@@ -34,8 +34,8 @@ class Match extends Model
         return $this->belongsToMany(League::class, 'league_matches', 'match_id', 'league_id')->withPivot('season_id');
     }
 
-    public function teams()
+    public function team()
     {
-        return $this->hasMany(Team::class);
+        return $this->belongsTo(Team::class);
     }
 }
