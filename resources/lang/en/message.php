@@ -27,4 +27,9 @@ return [
     'update_league_successfully' => 'Update league successfully',
     'create_season_successfully' => 'Create season successfully',
     'update_season_successfully' => 'Update season successfully',
+    'create_rank_successfully' => 'Create rank successfully',
+    'update_rank_successfully' => 'Update rank successfully',
+    'this_league_does_not_have_any_team' => 'This league does not have any team',
+    'choose_one' => '-- Choose one --',
+    'listing_error' => 'Listing error',
 ];
