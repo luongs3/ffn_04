@@ -28,5 +28,7 @@ return [
         'name_max' => 60,
         'description_max' => 60000,
         'image_size' => 5000,
+        'number_min' => 0,
+        'number_max' => 200,
     ],
 ];
