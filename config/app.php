@@ -161,6 +161,7 @@ return [
         Laravel\Socialite\SocialiteServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
     ],
 
@@ -212,6 +213,7 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Alert' => UxWeb\SweetAlert\SweetAlert::class,
 
     ],
 

@@ -49,3 +49,8 @@ Route::group(['prefix' => 'auth', 'middleware' => 'web'], function() {
  */
 Route::get('news', 'NewsController@index');
 Route::get('news/{slug}', 'NewsController@show');
+Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
+    Route::resource('posts', 'Admin\PostController',
+        ['except' => ['index', 'show']]
+    );
+});

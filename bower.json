@@ -18,6 +18,7 @@
   "dependencies": {
     "bootstrap": "^3.3.7",
     "react": "^15.2.1",
-    "masonry": "^4.1.0"
+    "masonry": "^4.1.0",
+    "sweetalert": "^1.1.3"
   }
 }

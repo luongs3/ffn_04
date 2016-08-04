@@ -17,7 +17,7 @@
                         </ul>
 
                         <div class="news-post-content">
-                            <p>{{ $post->content }}</p>
+                            {!! $post->content !!}
                         </div>
 
                     </div>
