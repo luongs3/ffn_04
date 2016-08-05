@@ -118,9 +118,11 @@ class TeamRepository extends BaseRepository implements TeamRepositoryInterface
     public function delete($ids)
     {
         try {
+            $teams = $this->model->whereIn('id', $ids)->get();
             DB::beginTransaction();
             Player::whereIn('team_id', $ids)->update(['team_id' => null]);
-            $data = $this->model->destroy($ids);
+            $teams->matches()->delete();
+            $data = $teams->delete();
 
             if (!$data) {
                 return ['error' => trans('message.deleting_error')];

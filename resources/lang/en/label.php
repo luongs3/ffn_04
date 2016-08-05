@@ -71,4 +71,12 @@ return [
     'season_name' => 'Season',
     'team_name' => 'Team',
     'rank_profile' => 'Rank Profile',
+    'team1' => 'Team 1',
+    'team2' => 'Team 2',
+    'score_team1' => 'Score Team 1',
+    'score_team2' => 'Score Team 2',
+    'place' => 'Place',
+    'start_time' => 'Start Time',
+    'end_time' => 'Start Time',
+    'match_profile' => 'Match Profile',
 ];
