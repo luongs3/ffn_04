@@ -30,5 +30,6 @@ return [
         'image_size' => 5000,
         'number_min' => 0,
         'number_max' => 200,
+        'place_max' => 200,
     ],
 ];

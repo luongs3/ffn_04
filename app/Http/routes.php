@@ -27,6 +27,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('seasons', 'Admin\SeasonController');
         Route::get('/ranks/export', ['as' => 'admin.ranks.export', 'uses' => 'Admin\RankController@export']);
         Route::resource('ranks', 'Admin\RankController');
+        Route::get('/matches/export', ['as' => 'admin.matches.export', 'uses' => 'Admin\MatchController@export']);
+        Route::resource('matches', 'Admin\MatchController');
     });
 });
 Route::get('/home', 'HomeController@index');

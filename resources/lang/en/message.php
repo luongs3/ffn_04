@@ -32,4 +32,6 @@ return [
     'this_league_does_not_have_any_team' => 'This league does not have any team',
     'choose_one' => '-- Choose one --',
     'listing_error' => 'Listing error',
+    'create_match_successfully' => 'Create match successfully',
+    'update_match_successfully' => 'Update match successfully',
 ];
