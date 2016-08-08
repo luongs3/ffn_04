@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Match;
 
+use App\Models\LeagueMatch;
 use App\Models\Team;
 use App\Repositories\BaseRepository;
 use App\Models\Match;
@@ -16,7 +17,6 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
         $this->model = $match;
     }
 
-
     public function index($subject, $options = [])
     {
         $limit = isset($options['limit']) ? $options['limit'] : config('common.limit.page_limit');
@@ -28,7 +28,6 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             $data['subject'] = $subject;
             $data['columns'] = isset($options['columns']) ? $options['columns'] : $this->model->getFillable();
             array_unshift($data['columns'], 'id');
-
             if (count($rows)) {
                 foreach ($rows as $key => $row) {
                     $rows[$key] = $row->where('id', $row['id'])->first($data['columns']);
@@ -45,6 +44,51 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
 
             return $data;
         } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
+    }
+
+    public function show($id)
+    {
+        try {
+            $data = $this->model->find($id);
+
+            if (!$data) {
+                return ['error' => trans('message.item_not_exist')];
+            }
+
+            $data['league_match'] = LeagueMatch::where('match_id', $data['id'])->first();
+
+            return $data;
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
+    }
+
+    public function store($input)
+    {
+        $match = [
+            'team1_id' => array_pull($input, 'team1_id'),
+            'team2_id' => array_pull($input, 'team2_id'),
+            'place' => array_pull($input, 'place'),
+        ];
+
+        try {
+            DB::beginTransaction();
+            $data = $this->model->create($match);
+
+            if (!$data) {
+                return ['error' => trans('message.deleting_error')];
+            }
+
+            $input['match_id'] = $data->id;
+            LeagueMatch::create($input);
+            DB::commit();
+
+            return $data;
+        } catch (Exception $ex) {
+            DB::rollBack();
+
             return ['error' => $ex->getMessage()];
         }
     }

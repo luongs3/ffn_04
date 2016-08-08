@@ -135,4 +135,19 @@ class TeamRepository extends BaseRepository implements TeamRepositoryInterface
             return ['error' => $ex->getMessage()];
         }
     }
+
+    public function filter($filter = [])
+    {
+        try {
+            $teams = $this->model->where('league_id', $filter['league_id'])->get();
+
+            if (!count($teams)) {
+                return ['error' => trans('message.data_is_empty')];
+            }
+
+            return $teams;
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
+    }
 }

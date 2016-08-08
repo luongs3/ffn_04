@@ -7,9 +7,12 @@
  */
 namespace App\Repositories;
 
+use App\Models\LeagueMatch;
 use Exception;
 use DB;
 use Excel;
+use App\Models\Team;
+use App\Models\Match;
 
 abstract class BaseRepository
 {
@@ -172,17 +175,55 @@ abstract class BaseRepository
         return $input;
     }
 
-    public function lists()
+    public function lists($filters = [])
     {
         try {
-            $data = $this->model->lists('name', 'id');
+
+            $data = $this->model->where($filters)->lists('name', 'id');
 
             if (!count($data)) {
                 return ['error' => trans('message.listing_error')];
             }
+
             return $data;
         } catch (Exception $ex) {
             return ['error' => $ex->getMessage()];
         }
+    }
+
+    public function getMatchName($match = null, $filter = [])
+    {
+        if (empty($match)) {
+            $matchIds = LeagueMatch::where($filter)->distinct()->lists('match_id');
+            $matches = Match::whereIn('id', $matchIds)->get();
+
+            if (!count($matches)) {
+                return ['error' => 'match_data_is_empty'];
+            }
+
+            foreach ($matches as $key => $match) {
+                $team1 = Team::find($match['team1_id'])->name;
+                $team2 = Team::find($match['team2_id'])->name;
+                $matches[$key]['name'] = trans('general.team1_vs_team2', [
+                    'id' => $match->id,
+                    'team1' => $team1,
+                    'team2' => $team2,
+                    'place' => $match->place
+                ]);
+            }
+
+            return $matches->lists('name', 'id');
+        }
+
+        $team1 = Team::find($match['team1_id'])->name;
+        $team2 = Team::find($match['team2_id'])->name;
+        $match['name'] = trans('general.team1_vs_team2', [
+            'id' => $match->id,
+            'team1' => $team1,
+            'team2' => $team2,
+            'place' => $match->place
+        ]);
+
+        return $match['name'];
     }
 }

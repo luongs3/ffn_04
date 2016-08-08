@@ -14,8 +14,10 @@ class SeasonController extends Controller
     private $seasonRepository;
     private $leagueRepository;
 
-    public function __construct(SeasonRepositoryInterface $seasonRepository, LeagueRepositoryInterface $leagueRepository)
-    {
+    public function __construct(
+        SeasonRepositoryInterface $seasonRepository,
+        LeagueRepositoryInterface $leagueRepository
+    ) {
         $this->seasonRepository = $seasonRepository;
         $this->leagueRepository = $leagueRepository;
     }
@@ -100,5 +102,17 @@ class SeasonController extends Controller
     public function export()
     {
         $this->seasonRepository->export('season');
+    }
+
+    public function ajaxSeasons()
+    {
+        $filter = request()->only('league_id');
+        $data = $this->seasonRepository->filter($filter);
+
+        if (isset($data['errors'])) {
+            return response()->json(['error' => $data['errors']]);
+        }
+
+        return response()->json($data);
     }
 }

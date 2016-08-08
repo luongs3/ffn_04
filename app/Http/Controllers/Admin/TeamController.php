@@ -127,4 +127,17 @@ class TeamController extends Controller
     {
         $this->teamRepository->export('team');
     }
+
+    public function ajaxTeams()
+    {
+        $filter = request()->only('league_id');
+
+        $data = $this->teamRepository->filter($filter);
+
+        if (isset($data['errors'])) {
+            return response()->json(['error' => $data['errors']]);
+        }
+
+        return response()->json($data);
+    }
 }

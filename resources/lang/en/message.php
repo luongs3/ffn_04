@@ -34,4 +34,9 @@ return [
     'listing_error' => 'Listing error',
     'create_match_successfully' => 'Create match successfully',
     'update_match_successfully' => 'Update match successfully',
+    'match_data_is_empty' => 'Match data is empty',
+    'create_match_event_successfully' => 'Create match event successfully',
+    'update_match_event_successfully' => 'Update match event successfully',
+    'choose_league_first' => 'Choose league first',
+    'choose_season_first' => 'Choose season first',
 ];
