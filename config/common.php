@@ -2,7 +2,7 @@
 return [
     'user' => [
         'avatar_path' => 'upload/',
-        'default_avatar' => '/images/default.png',
+        'default_avatar' => 'images/default.png',
         'user_limit' => 30,
         'role' => [
             'user' => 0,

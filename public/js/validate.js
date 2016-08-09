@@ -30,4 +30,31 @@ $(document).ready(function () {
             },
         },
     });
+    $('.frmChangePassword').validate({
+        rules : {
+            password : {
+                required : true,
+                minlength : 6,
+            },
+            newPassword : {
+                required : true,
+                minlength : 6,
+            },
+            newPasswordConfirmation : {
+                equalTo : "#new-password",
+                required : true,
+            },
+        },
+    });
+    $('.frmUpdateUser').validate({
+        rules : {
+            avatar : {
+                required : true,
+                extension : "jpg|jpeg|png|gif|svg|bmp",
+            },
+            name : {
+                maxlength : 100,
+            },
+        },
+    });
 });

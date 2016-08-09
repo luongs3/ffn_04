@@ -61,3 +61,14 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
         ['except' => ['index', 'show']]
     );
 });
+Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
+    Route::resource('profiles', 'User\UserController');
+    Route::get('/profiles/getChangePassword/{id}', [
+        'as' => 'user.profiles.getChangePassword',
+        'uses' => 'User\UserController@getChangePassword'
+    ]);
+    Route::post('/profiles/postChangePassword/{id}', [
+        'as' => 'user.profiles.postChangePassword',
+        'uses' => 'User\UserController@postChangePassword'
+    ]);
+});

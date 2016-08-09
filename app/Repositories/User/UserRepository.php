@@ -9,6 +9,9 @@ use Mail;
 use DB;
 use DateTime;
 use Carbon\Carbon;
+use Auth;
+use File;
+use Hash;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -50,11 +53,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user = $this->model->confirmationCode($confirmationCode)->first();
 
         $user->confirmation_code = '';
-        $user->confirmed = config('common.user.comfirmed.is_confirm');
+        $user->confirmed = config('common.user.confirmed.is_confirm');
         $user->save();
 
         if (!$user) {
-            throw new Exception('message.item_not_exist');
+            throw new Exception(trans('message.item_not_exist'));
         }
 
         return $user;
@@ -107,5 +110,57 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         }
 
         $delete = $this->model->destroy($deleteUser);
+    }
+
+    public function changePassword($request)
+    {
+        $user = Auth::user();
+
+        if (!empty($user->password) && (Hash::check($request->password, $user->password))) {
+            $user->update([
+                'password' => $request->newPassword,
+            ]);
+
+            return $user;
+        }
+
+        return ['error' => trans('message.change_password_fail')];
+    }
+
+    public function updateInfo($request)
+    {
+        $userUpdate = $request->only(['name']);
+        $oldImage = Auth::user()->avatar;
+        $image = $this->uploadAvatar($request, $oldImage);
+
+        if ($request->hasFile('avatar')) {
+            $userUpdate['avatar'] = $image;
+        }
+
+        $user = Auth::user()->update($userUpdate);
+
+        if (!$user) {
+            return ['error' => trans('message.updating_error')];
+        }
+
+        return $user;
+    }
+
+    public function uploadAvatar($request, $oldImage)
+    {
+        $imagePath = public_path(config('common.user.avatar_path'));
+        $image = $request->file('avatar');
+        $extenstion = $image->getClientOriginalExtension();
+        $fileName = time() . '.' . $extenstion;
+        $image->move($imagePath, $fileName);
+        $userData = [
+            'avatar' => $fileName,
+        ];
+
+        if (!empty($oldImage) && file_exists($oldImage)) {
+            File::delete($oldImage);
+        }
+
+        return config('common.user.avatar_path') . $fileName;
     }
 }

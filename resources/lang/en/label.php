@@ -88,4 +88,11 @@ return [
     'icon' => 'Icon',
     'icon_type' => 'Icon Type',
     'create_match_event' => 'Create Match Event',
+    'my_profile' => 'My Profile',
+    'setting' => 'Settings',
+    'avatar' => 'Avatar',
+    'reset' => 'Reset',
+    'new_password' => 'New Password',
+    'update_profile' => 'Update Profile',
+    'change_password' => 'Change Password',
 ];
