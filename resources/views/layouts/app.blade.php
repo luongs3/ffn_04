@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/app.css">
+    {!! Html::style('/css/app.css') !!}
 </head>
 <body id="app-layout">
     <nav class="navbar navbar-default navbar-static-top">
@@ -42,10 +42,26 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <i class="fa fa-user fa-fw"></i>
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>{{ trans('label.logout') }}</a></li>
+                            <ul class="dropdown-menu dropdown-user">
+                                <li>
+                                    <a href="{{ url('user/profiles/' . Auth::user()->id) }}">
+                                        <i class="fa fa-user fa-fw"></i> {{ trans('label.my_profile') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('user/profiles/' . Auth::user()->id . '/edit') }}">
+                                        <i class="fa fa-gear fa-fw"></i> {{ trans('label.setting') }}
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{ url('/logout') }}">
+                                        <i class="fa fa-btn fa-sign-out"></i> {{ trans('label.logout') }}
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     @endif
@@ -58,6 +74,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.min.js"></script>
-    <script src="js/validate.js"></script>
+    {!! Html::script('js/validate.js') !!}
 </body>
 </html>

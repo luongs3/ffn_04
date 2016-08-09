@@ -39,4 +39,8 @@ return [
     'update_match_event_successfully' => 'Update match event successfully',
     'choose_league_first' => 'Choose league first',
     'choose_season_first' => 'Choose season first',
+    'change_password_fail' => 'Password wrong, please check input !',
+    'not_permission' => 'Your Account is not permission',
+    'change_password_success' => 'Change password successfully',
+    'update_user_success' => 'Update user successfully',
 ];
