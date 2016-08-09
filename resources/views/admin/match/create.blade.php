@@ -9,15 +9,27 @@
     @include('layout.error')
     <div class="col-sm-8">
         <div class="form-group">
+            {!! Form::label('league_id', trans('label.leagues'), ['class' => 'control-label col-sm-2 required']) !!}
+            <div class="col-md-9">
+                {!! Form::select('league_id', $leagues, old('league_id'), ['class' => 'form-control', 'required' => true, 'placeholder' => trans('message.choose_one')]) !!}
+            </div>
+        </div>
+        <div class="form-group">
+            {!! Form::label('season_id', trans('label.seasons'), ['class' => 'control-label col-sm-2 required']) !!}
+            <div class="col-md-9">
+                {!! Form::select('season_id', [], old('season_id'), ['class' => 'form-control', 'required' => true, 'placeholder' => trans('message.choose_one'), 'data-alert' => trans('message.choose_league_first')]) !!}
+            </div>
+        </div>
+        <div class="form-group">
             {!! Form::label('team1_id', trans('label.team1'), ['class' => 'control-label col-sm-2 required']) !!}
             <div class="col-md-9">
-                {!! Form::select('team1_id', $teams, old('team1_id'), ['class' => 'form-control', 'required' => true, 'placeholder' => trans('message.choose_one')]) !!}
+                {!! Form::select('team1_id', [], old('team1_id'), ['class' => 'form-control teams', 'required' => true, 'placeholder' => trans('message.choose_one'), 'data-alert' => trans('message.choose_league_first')]) !!}
             </div>
         </div>
         <div class="form-group">
             {!! Form::label('team_2', trans('label.team2'), ['class' => 'control-label col-sm-2 required']) !!}
             <div class="col-md-9">
-                {!! Form::select('team2_id', $teams, old('team2_id'), ['class' => 'form-control', 'required' => true, 'placeholder' => trans('message.choose_one')]) !!}
+                {!! Form::select('team2_id', [], old('team2_id'), ['class' => 'form-control teams', 'required' => true, 'placeholder' => trans('message.choose_one'), 'data-alert' => trans('message.choose_league_first')]) !!}
             </div>
         </div>
         <div class="form-group">

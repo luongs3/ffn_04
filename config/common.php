@@ -31,5 +31,7 @@ return [
         'number_min' => 0,
         'number_max' => 200,
         'place_max' => 200,
+        'title_max' => 250,
+        'content_max' => 60000,
     ],
 ];

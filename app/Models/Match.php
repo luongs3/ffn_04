@@ -38,4 +38,9 @@ class Match extends Model
     {
         return $this->belongsTo(Team::class);
     }
+
+    public function matchEvents()
+    {
+        return $this->hasMany(MatchEvent::class);
+    }
 }

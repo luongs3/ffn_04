@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Season;
 
+use App\Models\League;
 use App\Models\LeagueMatch;
 use App\Models\Match;
 use App\Repositories\BaseRepository;
@@ -104,6 +105,23 @@ class SeasonRepository extends BaseRepository implements SeasonRepositoryInterfa
             return $data;
         } catch (Exception $ex) {
             DB::rollBack();
+            return ['error' => $ex->getMessage()];
+        }
+    }
+
+    public function filter($filter = [])
+    {
+        try {
+            $seasonIds = LeagueMatch::where('league_id', $filter['league_id'])->distinct()->lists('season_id');
+
+            if (!count($seasonIds)) {
+                return ['error' => trans('message.data_is_empty')];
+            }
+
+            $seasons = $this->model->whereIn('id', $seasonIds)->get();
+
+            return $seasons;
+        } catch (Exception $ex) {
             return ['error' => $ex->getMessage()];
         }
     }

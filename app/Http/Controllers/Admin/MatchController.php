@@ -7,17 +7,27 @@ use App\Http\Requests\CreateMatchRequest;
 use App\Http\Requests\UpdateMatchRequest;
 use App\Repositories\Match\MatchRepositoryInterface;
 use App\Repositories\Team\TeamRepositoryInterface;
+use App\Repositories\League\LeagueRepositoryInterface;
+use App\Repositories\Season\SeasonRepositoryInterface;
 use Carbon\Carbon;
 
 class MatchController extends Controller
 {
     private $matchRepository;
     private $teamRepository;
+    private $leagueRepository;
+    private $seasonRepository;
 
-    public function __construct(MatchRepositoryInterface $matchRepository, TeamRepositoryInterface $teamRepository)
-    {
+    public function __construct(
+        MatchRepositoryInterface $matchRepository,
+        TeamRepositoryInterface $teamRepository,
+        LeagueRepositoryInterface $leagueRepository,
+        SeasonRepositoryInterface $seasonRepository
+    ) {
         $this->matchRepository = $matchRepository;
         $this->teamRepository = $teamRepository;
+        $this->leagueRepository = $leagueRepository;
+        $this->seasonRepository = $seasonRepository;
     }
 
     public function index()
@@ -29,18 +39,22 @@ class MatchController extends Controller
 
     public function create()
     {
-        $teams = $this->teamRepository->lists();
+        $leagues = $this->leagueRepository->lists();
 
-        if (isset($teams['errors'])) {
-            return redirect()->route('admin.matches.index')->withErrors($teams['errors']);
+        if (isset($leagues['errors'])) {
+            return redirect()->route('admin.matches.index')->withErrors($leagues['errors']);
         }
 
-        return view('admin.match.create', compact('teams'));
+        $teams = $this->teamRepository->lists();
+
+        return view('admin.match.create', compact('leagues', 'teams'));
     }
 
     public function store(CreateMatchRequest $request)
     {
         $match = $request->only(
+            'league_id',
+            'season_id',
             'team1_id',
             'team2_id',
             'place'
