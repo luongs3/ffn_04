@@ -95,4 +95,7 @@ return [
     'new_password' => 'New Password',
     'update_profile' => 'Update Profile',
     'change_password' => 'Change Password',
+    'match_event' => 'Match Event',
+    'vs' => 'VS',
+    'choose_one' => '-- Choose one --',
 ];

@@ -52,8 +52,23 @@
         </div>
     </div>
     {!! Form::close() !!}
+    <div
+        class="col-sm-8"
+        id="match-events"
+        data-url="{{ route('admin.matches.match-events', ['id' => $match['id']]) }}"
+        data-match-id="{{ $match['id'] }}"
+        data-icon="{{ config('common.blank_icon') }}"
+        data-event-type="{{ $eventTypes }}"
+        data-placeholder="{{ $placeHolders }}"
+    >
+    </div>
 @endsection
 @section('script')
     {!! Html::script('/bower/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js') !!}
-    {!! Html::script('/js/match.js') !!}
+    {!! Html::script('/bower/browser-js/browser.min.js') !!}
+    {!! Html::script('/bower/react/react.min.js') !!}
+    {!! Html::script('/bower/react/react-dom.min.js') !!}
+    {!! Html::script('/bower/react/react-dom-server.min.js') !!}
+    {!! Html::script('/bower/react/react-with-addons.min.js') !!}
+    {!! Html::script('/js/match.js', ['type' => 'text/babel']) !!}
 @endsection
