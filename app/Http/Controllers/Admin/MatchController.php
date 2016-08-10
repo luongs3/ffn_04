@@ -10,6 +10,7 @@ use App\Repositories\Team\TeamRepositoryInterface;
 use App\Repositories\League\LeagueRepositoryInterface;
 use App\Repositories\Season\SeasonRepositoryInterface;
 use Carbon\Carbon;
+use App\Repositories\MatchEvent\MatchEventRepositoryInterface;
 
 class MatchController extends Controller
 {
@@ -17,17 +18,20 @@ class MatchController extends Controller
     private $teamRepository;
     private $leagueRepository;
     private $seasonRepository;
+    private $matchEventRepository;
 
     public function __construct(
         MatchRepositoryInterface $matchRepository,
         TeamRepositoryInterface $teamRepository,
         LeagueRepositoryInterface $leagueRepository,
-        SeasonRepositoryInterface $seasonRepository
+        SeasonRepositoryInterface $seasonRepository,
+        MatchEventRepositoryInterface $matchEventRepository
     ) {
         $this->matchRepository = $matchRepository;
         $this->teamRepository = $teamRepository;
         $this->leagueRepository = $leagueRepository;
         $this->seasonRepository = $seasonRepository;
+        $this->matchEventRepository = $matchEventRepository;
     }
 
     public function index()
@@ -84,7 +88,10 @@ class MatchController extends Controller
             return redirect()->route('admin.matches.index')->withError($teams['error']);
         }
 
-        return view('admin.match.edit', compact('match', 'teams'));
+        $eventTypes = json_encode($this->matchEventRepository->getMatchEventTypes());
+        $placeHolders = json_encode(config('common.place_holders'));
+
+        return view('admin.match.edit', compact('match', 'teams', 'eventTypes', 'placeHolders'));
     }
 
     public function update(UpdateMatchRequest $request, $id)
@@ -130,5 +137,13 @@ class MatchController extends Controller
     public function export()
     {
         $this->matchRepository->export('match');
+    }
+
+    public function matchEvents($id)
+    {
+        $options = ['filter' => ['match_id' => $id]];
+        $data = $this->matchEventRepository->all($options);
+
+        return response()->json($data);
     }
 }

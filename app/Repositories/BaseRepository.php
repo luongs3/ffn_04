@@ -8,6 +8,7 @@
 namespace App\Repositories;
 
 use App\Models\LeagueMatch;
+use Carbon\Carbon;
 use Exception;
 use DB;
 use Excel;
@@ -215,15 +216,17 @@ abstract class BaseRepository
             return $matches->lists('name', 'id');
         }
 
-        $team1 = Team::find($match['team1_id'])->name;
-        $team2 = Team::find($match['team2_id'])->name;
+        $team1 = Team::find($match['team1_id']);
+        $team2 = Team::find($match['team2_id']);
         $match['name'] = trans('general.team1_vs_team2', [
             'id' => $match->id,
-            'team1' => $team1,
-            'team2' => $team2,
+            'team1' => $team1->name,
+            'team2' => $team2->name,
             'place' => $match->place
         ]);
+        $match['team1'] = $team1;
+        $match['team2'] = $team2;
 
-        return $match['name'];
+        return $match;
     }
 }

@@ -62,6 +62,13 @@ class MatchEventController extends Controller
             return redirect()->route('admin.match-events.create')->withError($data['error']);
         }
 
+        if (request()->ajax()) {
+            $options = ['filter' => ['match_id' => $request->get('match_id')]];
+            $data = $this->matchEventRepository->all($options);
+
+            return response()->json($data);
+        }
+
         return redirect()->route('admin.match-events.index')->withSuccess(trans('message.create_match_event_successfully'));
     }
 

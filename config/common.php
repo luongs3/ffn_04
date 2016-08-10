@@ -34,4 +34,11 @@ return [
         'title_max' => 250,
         'content_max' => 60000,
     ],
+    'blank_icon' => asset('images/img_blank.gif'),
+    'place_holders' => [
+        'title' => 'Your Event title',
+        'content' => 'Your Event content',
+        'event_time' => 'Your Event time',
+        'choose_one' => '-- Choose one --'
+    ],
 ];

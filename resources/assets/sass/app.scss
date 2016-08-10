@@ -49,9 +49,204 @@
 }
 
 body {
-    font-family: 'Lato';
+  font-family: 'Lato';
 }
 
 .fa-btn {
-    margin-right: 6px;
+  margin-right: 6px;
+}
+
+.event {
+  border-top: dotted 1px #c6bfc1;
+  float: left;
+  width: 98%;
+  margin-bottom: 10px;
+  padding: 10px 2% 0 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.event:last-child {
+  border-bottom: dotted 1px #c6bfc1;
+}
+
+div.minutes {
+  float: left;
+  width: 10%;
+  position: relative;
+  color: #9f224e;
+  span {
+    display: inline-block;
+    text-align: center;
+  }
+}
+
+div.text-live {
+  float: right;
+  width: 86%;
+  font-family: "arial";
+  font-size: 14px;
+  line-height: 18px;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.clear {
+  clear: both;
+  font-size: 0;
+  line-height: 0;
+}
+
+.sub-form {
+  display: inline-block;
+  width: 260px;
+}
+
+.icon-live {
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  background: url("/images/icon_football_live.gif") no-repeat;
+  right: -16%;
+  top: 0
+}
+
+.icon-live-01 {
+  background-position: -51px -40px
+}
+
+.icon-live-02 {
+  background-position: -129px -40px
+}
+
+.icon-live-03 {
+  background-position: -205px -40px
+}
+
+.icon-live-04 {
+  background-position: -284px -40px
+}
+
+.icon-live-05 {
+  background-position: -368px -40px
+}
+
+.icon-live-06 {
+  background-position: -447px -40px
+}
+
+.icon-live-07 {
+  background-position: -527px -40px
+}
+
+.icon-live-08 {
+  background-position: -50px -109px
+}
+
+.icon-live-09 {
+  background-position: -129px -109px
+}
+
+.icon-live_10 {
+  background-position: -209px -114px
+}
+
+.icon-live_11 {
+  background-position: -289px -109px
+}
+
+.icon-live_12 {
+  background-position: -367px -109px
+}
+
+.icon-live_13 {
+  background-position: -447px -109px
+}
+
+.icon-live_14 {
+  background-position: -527px -109px
+}
+
+.icon-dot-live {
+  background: url("/images/icon_dot_live.gif") no-repeat left top;
+  font-size: 0;
+  line-height: 0;
+  height: 7px;
+  width: 7px;
+  top: 5px;
+  right: auto;
+  left: 94%
+}
+
+.schedule {
+  border: 1px solid #75b43a;
+  width: 99%;
+  font-size: 14px;
+}
+
+.schedule-title {
+  width: 100%;
+  background: #75b43a;
+  color: #FFF;
+  text-transform: uppercase;
+  font-weight: 700;
+  text-align: center;
+  padding: 10px 0;
+  float: left;
+}
+
+.score-avatar {
+  width: 100%;
+  float: left;
+  padding: 15px 0;
+  background: #fff;
+}
+
+.team {
+  width: 32%;
+  float: left;
+  padding-top: 20px;
+  margin-left: 5px;
+  word-break: break-word;
+  text-align: center;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+}
+
+.team-name {
+  color: #000;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  padding: 15px 5px 0;
+}
+
+.score {
+  width: 160px;
+  float: left;
+  padding-top: 20px;
+}
+
+.team-score {
+  width: 60px;
+  float: left;
+  border: 2px solid #75b43a;
+  border-radius: 3px;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: red;
+}
+
+.vs {
+  width: 32px;
+  float: left;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 18px;
+  font-weight: 700;
 }

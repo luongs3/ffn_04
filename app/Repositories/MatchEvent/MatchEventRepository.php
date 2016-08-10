@@ -49,6 +49,22 @@ class MatchEventRepository extends BaseRepository implements MatchEventRepositor
     public function getIconTypes()
     {
         return [
+            'icon-live-01' => trans('general.match_start_end'),
+            'icon-live-02' => trans('general.offside'),
+            'icon-live-03' => trans('general.yellow_card'),
+            'icon-live-04' => trans('general.red_card'),
+            'icon-live-05' => trans('general.pitch'),
+            'icon-live-06' => trans('general.score'),
+            'icon-live-07' => trans('general.own_goal'),
+            'icon-live-08' => trans('general.corner'),
+            'icon-live-09' => trans('general.substitution'),
+            'icon-live-10' => trans('general.free_kick'),
+        ];
+    }
+
+    public function getMatchEventTypes()
+    {
+        return [
             'match_start_end' => trans('general.match_start_end'),
             'offside' => trans('general.offside'),
             'yellow_card' => trans('general.yellow_card'),

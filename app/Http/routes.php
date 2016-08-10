@@ -30,12 +30,15 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/ranks/export', ['as' => 'admin.ranks.export', 'uses' => 'Admin\RankController@export']);
         Route::resource('ranks', 'Admin\RankController');
         Route::get('/matches/export', ['as' => 'admin.matches.export', 'uses' => 'Admin\MatchController@export']);
+        Route::get('/matches/{id}/match-events', ['as' => 'admin.matches.match-events', 'uses' => 'Admin\MatchController@matchEvents']);Route::get('/matches/{id}/match-events', ['as' => 'admin.matches.match-events', 'uses' => 'Admin\MatchController@matchEvents']);
         Route::resource('matches', 'Admin\MatchController');
         Route::get('/match-events/export', ['as' => 'admin.match-events.export', 'uses' => 'Admin\MatchEventController@export']);
         Route::get('/match-events/match-names', ['as' => 'admin.match-events.match-names', 'uses' => 'Admin\MatchEventController@getMatchNames']);
         Route::resource('match-events', 'Admin\MatchEventController');
     });
 });
+
+// Client
 Route::get('/home', 'HomeController@index');
 Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
@@ -51,9 +54,6 @@ Route::group(['prefix' => 'auth', 'middleware' => 'web'], function() {
     Route::get('/{social}/callback', 'Auth\SocialiteController@handleProviderCallback');
 });
 
-/*
- * Football News
- */
 Route::get('news', 'NewsController@index');
 Route::get('news/{slug}', 'NewsController@show');
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
@@ -72,3 +72,5 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
         'uses' => 'User\UserController@postChangePassword'
     ]);
 });
+
+Route::resource('matches', 'Client\MatchController');
