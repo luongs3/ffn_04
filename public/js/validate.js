@@ -57,4 +57,42 @@ $(document).ready(function () {
             },
         },
     });
+    $('.frmAdminUpdateUser').validate({
+        rules : {
+            name : {
+                maxlength : 100,
+                required : true,
+            },
+            email : {
+                required : true,
+                email : true,
+            },
+            point : {
+                required : true,
+            },
+        },
+    });
+    $('.frmAdminCreateUser').validate({
+        rules : {
+            name : {
+                maxlength : 100,
+                required : true,
+            },
+            email : {
+                required : true,
+                email : true,
+            },
+            password : {
+                required : true,
+                minlength : 6,
+            },
+            password_confirm : {
+                equalTo : "#password",
+                required : true,
+            },
+            point : {
+                required : true,
+            },
+        },
+    });
 });

@@ -131,7 +131,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         $userUpdate = $request->only(['name']);
         $oldImage = Auth::user()->avatar;
-        $image = $this->uploadAvatar($request, $oldImage);
+        $image = $this->uploadAvatar($request);
+        $this->deleteImage($oldImage);
 
         if ($request->hasFile('avatar')) {
             $userUpdate['avatar'] = $image;
@@ -146,7 +147,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $user;
     }
 
-    public function uploadAvatar($request, $oldImage)
+    public function uploadAvatar($request)
     {
         $imagePath = public_path(config('common.user.avatar_path'));
         $image = $request->file('avatar');
@@ -157,10 +158,132 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             'avatar' => $fileName,
         ];
 
-        if (!empty($oldImage) && file_exists($oldImage)) {
-            File::delete($oldImage);
+        return config('common.user.avatar_path') . $fileName;
+    }
+
+    public function allUser()
+    {
+        $limit = isset($options['limit']) ? $options['limit'] : config('common.limit.page_limit');
+        $order = isset($options['order']) ? $options['order'] : ['key' => 'id', 'aspect' => 'DESC'];
+
+        try {
+            $users = $this->model->where('role', '<>', config('common.user.role.admin'))->orderBy($order['key'], $order['aspect'])->paginate($limit);
+            return $users;
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
+    }
+
+    public function destroy($ids)
+    {
+        try {
+            $avatar = $this->model->whereIn('id', $ids)->lists('avatar');
+            $this->deleteImage($avatar);
+            DB::beginTransaction();
+            SocialAcount::whereIn('user_id', $ids)->delete();
+            $data = $this->model->destroy($ids);
+
+            if (!$data) {
+                return ['error' => trans('message.deleting_error')];
+            }
+            DB::commit();
+
+            return $data;
+        } catch (Exception $e) {
+            DB::rollBack();
+
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+    public function find($id)
+    {
+        try {
+            $user = $this->model->findOrFail($id);
+
+            if (!$user) {
+                return ['error' => trans('message.item_not_exist')];
+            }
+
+            return $user;
+        } catch (Exception $e) {
+            return ['error' => $e->getMessage()];
         }
 
-        return config('common.user.avatar_path') . $fileName;
+    }
+
+    public function adminCreate($request, $confirmationCode)
+    {
+        $user = [
+            'email' => $request->email,
+            'name' => $request->name,
+            'password' => $request->password,
+            'confirmed' => config('common.user.confirmed.not_confirm'),
+            'confirmation_code' => $confirmationCode,
+            'role' => $request->role,
+            'point' => $request->point,
+        ];
+        $createUser = $this->model->create($user);
+
+        if (!$createUser) {
+            throw new Exception('message.create_user_fail');
+        }
+
+        $sendMailData = [
+            'email' => $request->email,
+            'name' => $request->name,
+            'confirmation_code' => $confirmationCode,
+        ];
+        Mail::send('emails.welcome', $sendMailData, function ($message) use ($sendMailData){
+            $message->to($sendMailData['email'], $sendMailData['name'])->subject(trans('label.confirm_register'));
+        });
+
+        return $createUser;
+    }
+
+    public function adminUpdate($request, $id)
+    {
+        $userUpdate = $request->only(['email', 'name', 'role', 'point']);
+        $userData = $this->find($id);
+
+        if (isset($userData['error'])) {
+            return ['error' => $userData['error']];
+        }
+
+        $user = $userData->update($userUpdate);
+
+        if (!$user) {
+            return ['error' => trans('message.updating_error')];
+        }
+
+        return $user;
+    }
+
+    public function deleteImage($pathImage = [])
+    {
+        if (!empty($pathImage) && file_exists($pathImage)) {
+            File::delete($pathImage);
+        }
+    }
+
+    public function optionRole()
+    {
+        $option = [
+            config('common.user.role.admin') => trans('label.admin'),
+            config('common.user.role.user') => trans('label.user'),
+            config('common.user.role.team') => trans('label.team'),
+        ];
+
+        return $option;
+    }
+
+    public function optionActive()
+    {
+        $optionActive = [
+            config('common.user.confirmed.not_confirm') => trans('label.invalid'),
+            config('common.user.confirmed.is_confirm') => trans('label.activity'),
+        ];
+
+        return $optionActive;
     }
 }

@@ -87,4 +87,38 @@ $(document).ready(function () {
             }
         });
     });
+
+    $('section').on('click', '#btn-delete-user', function (event) {
+        var response = confirm($(this).data('alert'));
+        if (response) {
+            var arr = [];
+            $("input[type='checkbox']:checked").each(function () {
+                arr.push($(this).val())
+            });
+
+            if (arr.length == 0) {
+                alert($(this).data('check'));
+                return false;
+            }
+            $.ajax({
+                type: 'DELETE',
+                url: $(this).data('url'),
+                dataType: 'json',
+                data: {
+                    ids: arr
+                },
+                success: function (data, status) {
+                    if (!data.ids) {
+                        window.location.replace($('#btn-delete-user').data('manage'));
+                    } else {
+                        var ids = data.ids;
+                        for (var i = 0; i < ids.length; i++) {
+                            $('#row_' + ids[i]).remove();
+                        }
+                        alert($('#btn-delete-user').data('success'));
+                    }
+                }
+            });
+        }
+    });
 });
