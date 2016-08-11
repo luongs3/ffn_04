@@ -20,7 +20,7 @@ class MatchController extends Controller
         $match = $this->matchRepository->getMatchName($match);
 
         if (isset($match['error'])) {
-            return redirect()->route('/')->withError($match['error']);
+            return redirect()->route('home')->withError($match['error']);
         }
 
         return view('client.match.show', compact('match'));

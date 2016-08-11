@@ -34,7 +34,7 @@ return [
         'title_max' => 250,
         'content_max' => 60000,
     ],
-    'blank_icon' => asset('images/img_blank.gif'),
+    'blank_icon' => 'images/img_blank.gif',
     'place_holders' => [
         'title' => 'Your Event title',
         'content' => 'Your Event content',

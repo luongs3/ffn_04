@@ -41,7 +41,7 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 // Client
-Route::get('/home', 'HomeController@index');
+Route::get('/home', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/login', 'Auth\AuthController@getLogin');
 Route::post('/login', 'Auth\AuthController@postLogin');
 Route::get('/logout', 'HomeController@getLogout');
@@ -76,3 +76,5 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
 });
 
 Route::resource('matches', 'Client\MatchController');
+Route::resource('players', 'Client\PlayerController');
+Route::resource('teams', 'Client\TeamController');
