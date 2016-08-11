@@ -35,8 +35,8 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('/match-events/export', ['as' => 'admin.match-events.export', 'uses' => 'Admin\MatchEventController@export']);
         Route::get('/match-events/match-names', ['as' => 'admin.match-events.match-names', 'uses' => 'Admin\MatchEventController@getMatchNames']);
         Route::resource('match-events', 'Admin\MatchEventController');
-        Route::resource('users', 'Admin\UserController');
         Route::get('users/export', ['as'  => 'admin.users.export', 'uses' => 'Admin\UserController@export']);
+        Route::resource('users', 'Admin\UserController');
     });
 });
 
@@ -75,6 +75,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     ]);
 });
 
+Route::get('/matches/{id}/match-events', ['as' => 'matches.match-events', 'uses' => 'Admin\MatchController@matchEvents']);
 Route::resource('matches', 'Client\MatchController');
 Route::resource('players', 'Client\PlayerController');
 Route::resource('teams', 'Client\TeamController');

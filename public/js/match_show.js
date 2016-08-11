@@ -12,13 +12,6 @@ var iconLive = {
 };
 var blankIcon = $('#match-events').data('icon');
 
-function getIconLive(icon) {
-    if (icon) {
-        return iconLive[icon];
-    }
-    return 'icon-dot-live';
-}
-
 var Event = React.createClass({
     render: function () {
         return (

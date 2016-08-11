@@ -30,7 +30,7 @@ class MatchEventRepository extends BaseRepository implements MatchEventRepositor
             if (count($rows)) {
                 foreach ($rows as $key => $row) {
                     $rows[$key] = $row->where('id', $row['id'])->first($data['columns']);
-                    $rows[$key]['match'] = $this->getMatchName($row->match);
+                    $rows[$key]['match'] = $this->getMatchName($row->match)->name;
                 }
                 $data['from'] = ($rows->currentPage() - 1) * config('common.limit.page_limit') + 1;
                 $data['to'] = $data['from'] + $rows->count() - 1;
