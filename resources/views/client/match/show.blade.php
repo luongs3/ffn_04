@@ -16,7 +16,7 @@
                 </div>
                 <div class="team">
                     <img class="logo" alt="{{ $match['team2']['name'] }}"
-                         src="{{ asset($match['team1']['logo']) }}">
+                         src="{{ asset($match['team2']['logo']) }}">
                     <div class="team-name">{{ $match['team2']['name'] }}</div>
                 </div>
                 <div class="clear"></div>
@@ -27,7 +27,7 @@
     <div
         class="col-sm-8"
         id="match-events"
-        data-url="{{ route('admin.matches.match-events', ['id' => $match['id']]) }}"
+        data-url="{{ route('matches.match-events', ['id' => $match['id']]) }}"
         data-match-id="{{ $match['id'] }}"
         data-icon="{{ asset(config('common.blank_icon')) }}"
     >
@@ -40,5 +40,5 @@
     {!! Html::script('/bower/react/react-dom.min.js') !!}
     {!! Html::script('/bower/react/react-dom-server.min.js') !!}
     {!! Html::script('/bower/react/react-with-addons.min.js') !!}
-    {!! Html::script('/js/match-show.js', ['type' => 'text/babel']) !!}
+    {!! Html::script('/js/match_show.js', ['type' => 'text/babel']) !!}
 @endsection

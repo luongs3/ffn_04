@@ -57,7 +57,7 @@
         id="match-events"
         data-url="{{ route('admin.matches.match-events', ['id' => $match['id']]) }}"
         data-match-id="{{ $match['id'] }}"
-        data-icon="{{ config('common.blank_icon') }}"
+        data-icon="{{ asset(config('common.blank_icon')) }}"
         data-event-type="{{ $eventTypes }}"
         data-placeholder="{{ $placeHolders }}"
     >
@@ -70,5 +70,6 @@
     {!! Html::script('/bower/react/react-dom.min.js') !!}
     {!! Html::script('/bower/react/react-dom-server.min.js') !!}
     {!! Html::script('/bower/react/react-with-addons.min.js') !!}
-    {!! Html::script('/js/match.js', ['type' => 'text/babel']) !!}
+    {!! Html::script('/js/match.js') !!}
+    {!! Html::script('/js/match_edit.js', ['type' => 'text/babel']) !!}
 @endsection

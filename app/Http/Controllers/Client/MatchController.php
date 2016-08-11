@@ -25,4 +25,12 @@ class MatchController extends Controller
 
         return view('client.match.show', compact('match'));
     }
+
+    public function matchEvents($id)
+    {
+        $options = ['filter' => ['match_id' => $id]];
+        $data = $this->matchEventRepository->all($options);
+
+        return response()->json($data);
+    }
 }
