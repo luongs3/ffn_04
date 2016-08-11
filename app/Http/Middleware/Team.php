@@ -23,15 +23,10 @@ class Team
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->user()->role != User::ROLE_TEAM) {
-
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->to('/');
-            }
+        if ($this->auth->user()->isTeam()) {
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect()->to('/');
     }
 }

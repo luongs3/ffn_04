@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::auth();
-Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'admin'], function () {
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/players/export', ['as' => 'admin.players.export', 'uses' => 'Admin\PlayerController@export']);
         Route::resource('players', 'Admin\PlayerController');
@@ -35,6 +35,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/match-events/export', ['as' => 'admin.match-events.export', 'uses' => 'Admin\MatchEventController@export']);
         Route::get('/match-events/match-names', ['as' => 'admin.match-events.match-names', 'uses' => 'Admin\MatchEventController@getMatchNames']);
         Route::resource('match-events', 'Admin\MatchEventController');
+        Route::resource('users', 'Admin\UserController');
+        Route::get('users/export', ['as'  => 'admin.users.export', 'uses' => 'Admin\UserController@export']);
     });
 });
 

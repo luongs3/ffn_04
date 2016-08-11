@@ -93,6 +93,11 @@ class AuthController extends Controller
         $password = $request->input('password');
 
         if (Auth::attempt(['email' => $email, 'password' => $password, 'confirmed' => config('common.user.confirmed.is_confirm')], $request->has('remember'))) {
+
+            if (Auth::user()->isAdmin()) {
+                return redirect()->route('admin.users.index');
+            }
+
             return redirect('/');
         } else {
             return redirect()->back()->withErrors(trans('message.login_error'));
@@ -133,6 +138,10 @@ class AuthController extends Controller
         try {
             $user = $this->userRepository->updateConfirm($confirmationCode);
             Auth::login($user);
+
+            if (Auth::user()->isAdmin()) {
+                return redirect()->route('admin.users.index');
+            }
 
             return redirect('/');
         } catch (Exception $e) {

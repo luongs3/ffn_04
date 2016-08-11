@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
-use App\Models\User;
 
 class Admin
 {
@@ -23,15 +22,10 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->user()->role != User::ROLE_ADMIN) {
-
-            if ($request->ajax()) {
-                return response('Unauthorized.', 401);
-            } else {
-                return redirect()->to('/');
-            }
+        if ($this->auth->user()->isAdmin()) {
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect()->to('/');
     }
 }

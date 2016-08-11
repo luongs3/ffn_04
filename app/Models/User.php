@@ -96,4 +96,14 @@ class User extends Authenticatable
 
         return "http://www.gravatar.com/avatar/$hash";
     }
+
+    public function isAdmin()
+    {
+        return $this->role == config('common.user.role.admin');
+    }
+
+    public function isTeam()
+    {
+        return $this->role == config('common.user.role.team');
+    }
 }
