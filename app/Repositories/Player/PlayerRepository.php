@@ -90,4 +90,23 @@ class PlayerRepository extends BaseRepository implements PlayerRepositoryInterfa
             1 => trans('label.coach'),
         ];
     }
+
+    public function show($id)
+    {
+        try {
+            $data = $this->model->find($id);
+
+            if (!$data) {
+                return ['error' => trans('message.item_not_exist')];
+            }
+
+            if (!empty($data['team_id'])) {
+                $data['team'] = $data->team;
+            }
+
+            return $data;
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
+    }
 }

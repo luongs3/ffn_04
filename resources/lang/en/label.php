@@ -109,4 +109,5 @@ return [
     'team' => 'Team',
     'admin' => 'Admin',
     'edit_account' => 'Edit Account',
+    'player_role' => 'Role: :role',
 ];
