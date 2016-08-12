@@ -27,7 +27,6 @@ class CreateMatchRequest extends Request
             'team2_id' => "required|exists:teams,id",
             'place' => "max:{$rule['place_max']}",
             'start_time' => 'date',
-            'end_time' => 'date|after:start_time',
         ];
     }
 }

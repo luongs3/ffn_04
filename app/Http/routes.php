@@ -79,3 +79,8 @@ Route::get('/matches/{id}/match-events', ['as' => 'matches.match-events', 'uses'
 Route::resource('matches', 'Client\MatchController');
 Route::resource('players', 'Client\PlayerController');
 Route::resource('teams', 'Client\TeamController');
+Route::group(['prefix' => 'leagues/{id}'], function () {
+    Route::get('rank', ['as' => 'leagues.rank', 'uses' => 'Client\LeagueController@rank']);
+    Route::get('schedule', ['as' => 'leagues.schedule', 'uses' => 'Client\LeagueController@schedule']);
+});
+Route::resource('leagues', 'Client\LeagueController');

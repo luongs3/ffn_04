@@ -44,12 +44,6 @@
                 {!! Form::text('start_time', old('start_time'), ['class' => 'form-control date-time']) !!}
             </div>
         </div>
-        <div class="form-group">
-            {!! Form::label('end_time', trans('label.end_time'), ['class' => 'control-label col-sm-2']) !!}
-            <div class="col-sm-9">
-                {!! Form::text('end_time', old('end_time'), ['class' => 'form-control date-time']) !!}
-            </div>
-        </div>
     </div>
     {!! Form::close() !!}
 @endsection
