@@ -71,6 +71,7 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             'team1_id' => array_pull($input, 'team1_id'),
             'team2_id' => array_pull($input, 'team2_id'),
             'place' => array_pull($input, 'place'),
+            'start_time' => array_pull($input, 'start_time'),
         ];
 
         try {

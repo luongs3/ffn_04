@@ -64,7 +64,6 @@ class MatchController extends Controller
             'place'
         );
         $match['start_time'] = Carbon::parse($request->get('start_time'))->toDateTimeString();
-        $match['end_time'] = Carbon::parse($request->get('end_time'))->toDateTimeString();
         $data = $this->matchRepository->store($match);
 
         if (isset($data['error'])) {

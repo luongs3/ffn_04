@@ -106,8 +106,9 @@ return [
     'show' => 'Show',
     'create_account' => 'Create Account',
     'user' => 'User',
-    'team' => 'Team',
     'admin' => 'Admin',
     'edit_account' => 'Edit Account',
     'player_role' => 'Role: :role',
+    'rank_table' => 'Rank Table',
+    'schedule' => 'Schedule',
 ];
