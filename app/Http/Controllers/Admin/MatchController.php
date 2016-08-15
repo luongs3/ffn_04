@@ -100,11 +100,14 @@ class MatchController extends Controller
             'team2_id',
             'score_team1',
             'score_team2',
-            'place',
-            'start_time',
-            'end_time'
+            'place'
         );
-
+        $startTime = $request->get('start_time');
+        $endTime = $request->get('end_time');
+        $requestData['start_time'] = ($startTime != '0000-00-00 00:00:00' && !is_null($startTime))
+            ? Carbon::parse($request->get('start_time'))->toDateTimeString() : '0000-00-00 00:00:00';
+        $requestData['end_time'] = ($endTime != '0000-00-00 00:00:00' && !is_null($endTime))
+            ? Carbon::parse($request->get('end_time'))->toDateTimeString() : '0000-00-00 00:00:00';
         $data = $this->matchRepository->update($requestData, $id);
 
         if (isset($data['error'])) {

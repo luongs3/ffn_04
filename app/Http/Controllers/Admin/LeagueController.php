@@ -92,8 +92,8 @@ class LeagueController extends Controller
 
         $data = $this->leagueRepository->delete($ids);
 
-        if (isset($data['errors'])) {
-            session()->flash('error', $data['errors']['message']);
+        if (isset($data['error'])) {
+            session()->flash('error', $data['error']['message']);
 
             return response()->json(['success' => false]);
         }

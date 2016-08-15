@@ -25,7 +25,9 @@ var Event = React.createClass({
         return (
             <div className='event'>
                 <div className='minutes'>
-                    <span className='text-minutes '>{this.props.time}</span>
+                    <span className='text-minutes '>
+                        <a href={'/admin/match-events/' + this.props.id + '/edit'}>{this.props.time}</a>
+                    </span>
                     <img className={'icon-live' + ' ' + this.props.icon} src={blankIcon}/>
                 </div>
                 <div className='text-live'>
@@ -50,11 +52,6 @@ var EventBox = React.createClass({
         });
     },
     handleEventSubmit: function (event) {
-        var eventList = this.state.data;
-        event.id = Date.now();
-        var newEventList = eventList.concat([event]);
-        this.setState({data: newEventList});
-        // submit request to server and refresh the list
         $.ajax({
             type: 'POST',
             url: '/admin/match-events',
@@ -80,8 +77,8 @@ var EventBox = React.createClass({
         return (
             <div className='eventBox'>
                 <h3>Events</h3>
-                <EventList data={this.state.data}/>
                 <EventForm matchId={this.props.matchId} onEventSubmit={this.handleEventSubmit}/>
+                <EventList data={this.state.data}/>
             </div>
         )
     }
@@ -91,7 +88,7 @@ var EventList = React.createClass({
     render: function () {
         var eventNodes = this.props.data.map(function (event) {
             return (
-                <Event key={event.id} title={event.title} time={event.time} image={event.image} icon={event.icon}>
+                <Event key={event.id} id={event.id} title={event.title} time={event.time} image={event.image} icon={event.icon}>
                     {event.content}
                 </Event>
             )

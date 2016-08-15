@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Rank;
 
+use App\Models\LeagueMatch;
 use App\Models\Season;
 use App\Models\Team;
 use App\Repositories\BaseRepository;
@@ -101,5 +102,48 @@ class RankRepository extends BaseRepository implements RankRepositoryInterface
             DB::rollBack();
             return ['error' => $ex->getMessage()];
         }
+    }
+
+    public function updateRankFromMatch($match)
+    {
+        try {
+            $leagueMatch = LeagueMatch::where('match_id', $match['id'])->first();
+
+            if (!$leagueMatch) {
+                return ['error' => trans('message.data_is_empty')];
+            }
+            
+            $match = $this->calculateScore($match);
+
+            $team1 = $this->model->where(['season_id' => $leagueMatch['season_id'], 'team_id' => $match['team1_id']])->first();
+            $team1->score = $team1->score + $match['add1'];
+            $team1->number = $team1->number + 1;
+            $team1->save();
+
+            $team2 = $this->model->where(['season_id' => $leagueMatch['season_id'], 'team_id' => $match['team2_id']])->first();
+            $team2->score = $team2->score + $match['add2'];
+            $team2->number = $team2->number + 1;
+            $team2->save();
+
+            return $team1;
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
+    }
+
+    public function calculateScore($match)
+    {
+        if ($match['score_team1'] > $match['score_team2']) {
+            $match['add1'] = config('common.score.win');
+            $match['add2'] = config('common.score.lose');
+        } elseif ($match['score_team1'] == $match['score_team2']) {
+            $match['add1'] = config('common.score.draw');
+            $match['add2'] = config('common.score.draw');
+        } else {
+            $match['add1'] = config('common.score.lose');
+            $match['add2'] = config('common.score.win');
+        }
+
+        return $match;
     }
 }

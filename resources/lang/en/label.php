@@ -78,7 +78,7 @@ return [
     'score_team2' => 'Score Team 2',
     'place' => 'Place',
     'start_time' => 'Start Time',
-    'end_time' => 'Start Time',
+    'end_time' => 'End Time',
     'match_profile' => 'Match Profile',
     'matches' => 'Matches',
     'match' => 'Match',
@@ -111,4 +111,6 @@ return [
     'player_role' => 'Role: :role',
     'rank_table' => 'Rank Table',
     'schedule' => 'Schedule',
+    'result' => 'Result',
+    'score_two_team' => ':score_team1 - :score_team2',
 ];
