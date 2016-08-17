@@ -113,7 +113,7 @@ $(document).ready(function () {
                     } else {
                         var ids = data.ids;
                         for (var i = 0; i < ids.length; i++) {
-                            $('#row_' + ids[i]).remove();
+                            $('#row-' + ids[i]).remove();
                         }
                         alert($('#btn-delete-user').data('success'));
                     }

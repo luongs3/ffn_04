@@ -28,6 +28,10 @@ class NewsController extends Controller
 
         $post = $this->postRepository->findBy($slug);
 
-        return view('news.show', compact('latestPosts', 'post'));
+        return view('news.show', [
+            'latestPosts' => $latestPosts,
+            'post' => $post,
+            'message' => isset($post['error']) ? $post['error'] : '',
+        ]);
     }
 }

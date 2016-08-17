@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\CheckUser::class,
+        Commands\CheckPost::class,
     ];
 
     /**
@@ -27,5 +28,6 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('check:user')->daily();
+        $schedule->command('check:post')->everyMinute();
     }
 }

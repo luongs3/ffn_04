@@ -15,12 +15,26 @@
     {{ Form::label('content', trans('news.content')) }}
     {{ Form::textarea('content', isset($post) ? $post->content : null, ['class' => 'summernote form-control', 'id' => 'summernote']) }}
 
-    {{ Form::label('image', trans('news.choose_image')) }}
-    {{ Form::file('image', null) }}
+    <div class="form-group col-md-6">
+        {{ Form::label('image', trans('news.choose_image')) }}
+        {{ Form::file('image', null) }}
+    </div>
+
+    <div class="form-group col-md-6" id="publish">
+        {{ Form::label('published_at', trans('label.published_at')) }}
+        {{ Form::date('published_at') }}
+    </div>
+
+    <div class="form-group col-md-6" id="post">
+        {{ Form::label('is_post', trans('label.is_post')) }}
+        {!! Form::select('is_post', $optionPost, old('is_post'), ['class' => 'form-control']) !!}
+    </div>
 
     {{ Form::hidden('user_id', Auth::user()->id) }}
 
     <br>
+    <div class="form-group col-md-6">
+        {{ Form::button($buttonText, ['type' => 'submit', 'class' => 'btn btn-primary btn-sm']) }}
+    </div>
 
-    {{ Form::button($buttonText, ['type' => 'submit', 'class' => 'btn btn-primary btn-sm']) }}
 </div>
