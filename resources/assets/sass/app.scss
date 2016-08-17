@@ -306,3 +306,69 @@ p.excerpt a:hover {
 .scroll-view .nav_title {
   border: 0;
 }
+
+.bet-content {
+  width:600px;
+  height: 440px;
+  margin: 0 auto;
+  padding: 0 auto;
+  background: #BCF5CF;
+  border: 1px solid gray;
+}
+
+.bet-header {
+  height: 60px;
+  background: #BCF5CF;
+  border-bottom: 1px solid gray;
+  font-weight: 700;
+  font-size: 18px;
+  padding-top: 15px;
+  text-align: center;
+}
+
+.bet-body {
+  height: 340px;
+  background: #FFFFFF;
+  border-bottom: 1px solid gray;
+}
+
+.choose-team {
+  height: 250px;
+}
+
+.choose-team-title {
+  padding-left: 15px;
+  height:30px;
+  font-weight: 700;
+}
+
+.team-img {
+  height: 220px;
+  background: #FFFFFF;
+}
+
+.img {
+  height: 180px;
+}
+
+.radio {
+  height: 25px;
+  padding-left: 80px;
+}
+
+.text {
+  height: 220px;
+  padding-top: 100px;
+  padding-left: 40px;
+}
+
+.bet-footer {
+  float:right;
+  background: #BCF5CF;
+  padding-top: 2px;
+}
+
+.img-team {
+  width: 100%;
+  height: 100%;
+}

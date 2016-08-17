@@ -87,3 +87,5 @@ Route::group(['prefix' => 'leagues/{id}'], function () {
     Route::get('result', ['as' => 'leagues.result', 'uses' => 'Client\LeagueController@result']);
 });
 Route::resource('leagues', 'Client\LeagueController');
+Route::resource('/matches/{match_id}/bets', 'UserBetsController');
+Route::get('mybets', 'UserBetsController@myBets');

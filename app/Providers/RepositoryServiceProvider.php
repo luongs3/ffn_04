@@ -20,6 +20,8 @@ use App\Repositories\Match\MatchRepositoryInterface;
 use App\Repositories\Match\MatchRepository;
 use App\Repositories\MatchEvent\MatchEventRepositoryInterface;
 use App\Repositories\MatchEvent\MatchEventRepository;
+use App\Repositories\UserBet\UserBetRepositoryInterface;
+use App\Repositories\UserBet\UserBetRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -48,5 +50,6 @@ class RepositoryServiceProvider extends ServiceProvider
         App::bind(RankRepositoryInterface::class, RankRepository::class);
         App::bind(MatchRepositoryInterface::class, MatchRepository::class);
         App::bind(MatchEventRepositoryInterface::class, MatchEventRepository::class);
+        App::bind(UserBetRepositoryInterface::class, UserBetRepository::class);
     }
 }
