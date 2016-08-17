@@ -37,6 +37,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::resource('match-events', 'Admin\MatchEventController');
         Route::get('users/export', ['as'  => 'admin.users.export', 'uses' => 'Admin\UserController@export']);
         Route::resource('users', 'Admin\UserController');
+        Route::resource('posts', 'Admin\PostController');
     });
 });
 

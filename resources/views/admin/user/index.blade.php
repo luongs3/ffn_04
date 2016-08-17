@@ -44,7 +44,7 @@
                 </thead>
                 <tbody>
                     @foreach ($users as $key => $user)
-                        <tr id = 'row_{{ $user->id }}'>
+                        <tr id = 'row-{{ $user->id }}'>
                             <td>
                                 {!! Form::checkbox('select', $user->id, false, ['class' => 'select']) !!}
                             </td>

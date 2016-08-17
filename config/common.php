@@ -47,4 +47,9 @@ return [
         'draw' => 1,
         'lose' => 0,
     ],
+    'post' => [
+        'is_published' => 1,
+        'un_published' => 0,
+        'limit' => 1,
+    ],
 ];

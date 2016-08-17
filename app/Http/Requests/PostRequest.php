@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use Carbon\Carbon;
 
 class PostRequest extends Request
 {
@@ -23,6 +24,9 @@ class PostRequest extends Request
      */
     public function rules()
     {
+        $date = Carbon::now();
+        $isPost = config('common.post.is_published');
+
         return [
             'title' => 'required|max:255',
             'content' => 'required',
@@ -30,6 +34,7 @@ class PostRequest extends Request
             'category_id' => 'required',
             'league_id' => 'required',
             'image' => 'image|mimes:jpeg,jpg,bmp,png,gif|max:2048',
+            'published_at' => "required_if:is_post,$isPost|after:$date",
         ];
     }
 }

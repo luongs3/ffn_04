@@ -113,4 +113,10 @@ return [
     'schedule' => 'Schedule',
     'result' => 'Result',
     'score_two_team' => ':score_team1 - :score_team2',
+    'username' => 'Username',
+    'category' => 'Category',
+    'published_at' => 'Published at',
+    'post' => 'Post Content',
+    'is_post' => 'Posted',
+    'not_post' => 'Not Post',
 ];

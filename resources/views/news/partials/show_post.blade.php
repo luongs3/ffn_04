@@ -9,6 +9,7 @@
                     </div>
                     <div class="post-content">
                         <h1>{{ $post->title }}</h1>
+                        <h3>{{ $message }}</h3>
                         <ul class="post-tools">
                             <li><i class="fa fa-clock-o"></i> {{ $post->published_at->format('M jS Y g:ia') }}</li>
                             <li><i class="fa fa-user"></i> {{ $post->user->name }}</li>

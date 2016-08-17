@@ -20,6 +20,7 @@ class Post extends Model
         'title',
         'content',
         'published_at',
+        'is_post',
     ];
 
     public function setTitleAttribute($value)
@@ -37,11 +38,21 @@ class Post extends Model
 
         if (static::whereSlug($slug)->exists()) {
             $this->setUniqueSlug($title, $extra + 1);
-            
+
             return;
         }
 
         $this->attributes['slug'] = $slug;
+    }
+
+    public function scopeIsPosted($query)
+    {
+        return $query->where('is_post', config('common.post.is_published'));
+    }
+
+    public function scopeUnPost($query)
+    {
+        return $query->where('is_post', config('common.post.un_published'));
     }
 
     public function scopePublished($query)
