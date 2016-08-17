@@ -31,9 +31,20 @@ class LeagueController extends Controller
         $schedule = $this->leagueRepository->schedule($leagueId);
 
         if (isset($schedule['error'])) {
-            return redirect()->route('home')->withErrors($schedule['errors']);
+            return redirect()->route('home')->withErrors($schedule['error']);
         }
 
         return view('client.league.schedule', compact('schedule'));
+    }
+
+    public function result($leagueId)
+    {
+        $result = $this->leagueRepository->result($leagueId);
+
+        if (isset($result['error'])) {
+            return redirect()->route('home')->withErrors($result['error']);
+        }
+
+        return view('client.league.result', compact('result'));
     }
 }

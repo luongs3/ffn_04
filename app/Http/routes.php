@@ -82,5 +82,6 @@ Route::resource('teams', 'Client\TeamController');
 Route::group(['prefix' => 'leagues/{id}'], function () {
     Route::get('rank', ['as' => 'leagues.rank', 'uses' => 'Client\LeagueController@rank']);
     Route::get('schedule', ['as' => 'leagues.schedule', 'uses' => 'Client\LeagueController@schedule']);
+    Route::get('result', ['as' => 'leagues.result', 'uses' => 'Client\LeagueController@result']);
 });
 Route::resource('leagues', 'Client\LeagueController');

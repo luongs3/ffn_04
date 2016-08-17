@@ -109,7 +109,7 @@ class MatchEventController extends Controller
         return redirect()->route('admin.match-events.index')->withSuccess(trans('message.create_match_event_successfully'));
     }
 
-    public function destroy($id)
+    public function destroy($ids)
     {
         if (request()->has('ids')) {
             $ids = request()->get('ids');

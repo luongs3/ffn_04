@@ -41,4 +41,10 @@ return [
         'event_time' => 'Your Event time',
         'choose_one' => '-- Choose one --'
     ],
+    'extra_day' => 3,
+    'score' => [
+        'win' => 3,
+        'draw' => 1,
+        'lose' => 0,
+    ],
 ];

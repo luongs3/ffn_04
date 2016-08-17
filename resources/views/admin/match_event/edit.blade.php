@@ -1,10 +1,15 @@
 @extends($layout)
 @section('content')
-    {!! Form::model($matchEvent, ['route' => ['admin.matches.update', $matchEvent['id']], 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'method' => 'PUT']) !!}
+    {!! Form::model($matchEvent, ['route' => ['admin.match-events.update', $matchEvent['id']], 'class' => 'form-horizontal', 'enctype' => 'multipart/form-data', 'method' => 'PUT']) !!}
     <div class="page-header">
-        <h2>{{ trans('label.match_profile') }}</h2>
+        <h2>{{ trans('label.match_event_profile') }}</h2>
         <button type="submit" class="btn btn-default btn-lg btn-header">{{ trans('label.save') }}</button>
         <button type="button" class="btn btn-default btn-lg btn-header" id="btn-back">{{ trans('label.back') }}</button>
+        <button type="button" class="btn btn-default btn-lg btn-header" id="btn-destroy"
+                data-redirect="{{ route('admin.match-events.index') }}"
+                data-url="{{ route('admin.match-events.destroy', ['id' => $matchEvent['id']]) }}">
+            {{ trans('general/label.delete') }}
+        </button>
     </div>
     @include('layout.error')
     <div class="col-sm-8">

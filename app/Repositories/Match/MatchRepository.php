@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Match;
 
+use App\Events\UpdateMatch;
 use App\Models\LeagueMatch;
 use App\Models\Team;
 use App\Repositories\BaseRepository;
@@ -90,6 +91,25 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
         } catch (Exception $ex) {
             DB::rollBack();
 
+            return ['error' => $ex->getMessage()];
+        }
+    }
+
+    public function update($input, $id)
+    {
+        try {
+            $match = $this->model->find($id);
+            $match->fill($input);
+            $match->save();
+
+            if (!$match) {
+                return ['error' => trans('message.updating_error')];
+            }
+
+            event(new UpdateMatch($match));
+
+            return $id;
+        } catch (Exception $ex) {
             return ['error' => $ex->getMessage()];
         }
     }

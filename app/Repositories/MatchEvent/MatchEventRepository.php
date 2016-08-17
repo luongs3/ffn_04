@@ -77,4 +77,22 @@ class MatchEventRepository extends BaseRepository implements MatchEventRepositor
             'free_kick' => trans('general.free_kick'),
         ];
     }
+
+    public function all($options = [])
+    {
+        try {
+            $filter = isset($options['filter']) ? $options['filter'] : [];
+            $attributes = isset($options['attributes']) ? $options['attributes'] : null;
+            $order = isset($options['order']) ? $options['order'] : ['key' => 'id', 'aspect' => 'DESC'];
+            $data = $this->model->where($filter)->orderBy($order['key'], $order['aspect'])->get($attributes);
+
+            if (!count($data)) {
+                return ['error' => trans('message.item_not_exist')];
+            }
+
+            return $data;
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
+    }
 }

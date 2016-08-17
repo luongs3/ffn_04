@@ -60,7 +60,7 @@ class LeagueRepository extends BaseRepository implements LeagueRepositoryInterfa
         try {
             $lastSeason = LeagueMatch::where('league_id', $leagueId)->orderBy('season_id', 'DESC')->first();
 
-            if (!($lastSeason)) {
+            if (!$lastSeason) {
                 return ['error' => trans('message.season_data_is_empty')];
             }
 
@@ -89,7 +89,7 @@ class LeagueRepository extends BaseRepository implements LeagueRepositoryInterfa
         try {
             $lastSeason = LeagueMatch::where('league_id', $leagueId)->orderBy('season_id', 'DESC')->first();
 
-            if (!($lastSeason)) {
+            if (!$lastSeason) {
                 return ['error' => trans('message.season_data_is_empty')];
             }
 
@@ -137,7 +137,7 @@ class LeagueRepository extends BaseRepository implements LeagueRepositoryInterfa
             $matches[$i]['start_time'] = Carbon::parse($matches[$i]['start_time'])->toTimeString();
             $newMatches[$dateString][] = $matches[$i];
             $j = $i + 1;
-            while($j < $count && Carbon::parse($matches[$j]['start_time'])->toDateString() == $dateString) {
+            while ($j < $count && Carbon::parse($matches[$j]['start_time'])->toDateString() == $dateString) {
                 array_push($newMatches[$dateString], $matches[$j]);
                 $matches[$j]['start_time'] = Carbon::parse($matches[$j]['start_time'])->toTimeString();
                 $i++;
@@ -146,5 +146,29 @@ class LeagueRepository extends BaseRepository implements LeagueRepositoryInterfa
         }
 
         return $newMatches;
+    }
+
+    public function result($leagueId)
+    {
+        try {
+            $lastSeason = LeagueMatch::where('league_id', $leagueId)->orderBy('season_id', 'DESC')->first();
+
+            if (!$lastSeason) {
+                return ['error' => trans('message.season_data_is_empty')];
+            }
+
+            $matchIds = LeagueMatch::where('season_id', $lastSeason['season_id'])->lists('match_id');
+            $matches = Match::whereIn('id', $matchIds)
+                ->where('start_time', '<', Carbon::now()->addDay(config('common.extra_day'))->toDateString())
+                ->orderBy('start_time', 'DESC')->take(config('common.limit.page_limit'))->get();
+            $matches = $this->getTeams($matches);
+            $schedule['matches'] = $this->splitMatches($matches);
+            $schedule['league'] = League::find($leagueId);
+            $schedule['season'] = Season::find($lastSeason['season_id']);
+
+            return $schedule;
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
     }
 }
