@@ -16,4 +16,5 @@ return [
     'corner' => 'corner',
     'substitution' => 'substitution',
     'free_kick' => 'free kick',
+    'by' => 'by',
 ];
