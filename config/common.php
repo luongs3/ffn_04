@@ -16,6 +16,7 @@ return [
         'confirmation_code' => [
             'length' => 10,
         ],
+        'risk_level' => 30,
     ],
     'player' => [
         'role' => [
@@ -52,4 +53,5 @@ return [
         'un_published' => 0,
         'limit' => 1,
     ],
+    'top_user_bet_quantity' => 4,
 ];

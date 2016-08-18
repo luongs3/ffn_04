@@ -1,0 +1,11 @@
+{!! Html::style('/bower/bootstrap/dist/css/bootstrap.min.css') !!}
+{!! Html::style('/css/jquery-ui.structure.min.css') !!}
+{!! Html::style('/css/jquery-ui.theme.min.css') !!}
+{!! Html::style('/bower/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css') !!}
+{!! Html::style('/bower/font-awesome/css/font-awesome.min.css') !!}
+{!! Html::style('/bower/nprogress/nprogress.css') !!}
+{!! Html::style('/bower/iCheck/skins/flat/green.css') !!}
+{!! Html::style('/bower/jqvmap/dist/jqvmap.min.css') !!}
+{!! Html::style('/bower/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') !!}
+{!! Html::style('/css/custom.min.css') !!}
+{!! Html::style('/css/app.css') !!}

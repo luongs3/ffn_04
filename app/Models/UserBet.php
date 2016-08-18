@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -16,4 +15,9 @@ class UserBet extends Model
         'point',
         'result',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

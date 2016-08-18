@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories\User;
 
+use App\Models\League;
+use App\Models\UserBet;
 use App\Repositories\BaseRepository;
 use App\Models\User;
 use App\Models\SocialAcount;
@@ -41,7 +43,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             'name' => $request->name,
             'confirmation_code' => $confirmationCode,
         ];
-        Mail::send('emails.welcome', $sendMailData, function ($message) use ($sendMailData){
+        Mail::send('emails.welcome', $sendMailData, function ($message) use ($sendMailData) {
             $message->to($sendMailData['email'], $sendMailData['name'])->subject(trans('label.confirm_register'));
         });
 
@@ -234,7 +236,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             'name' => $request->name,
             'confirmation_code' => $confirmationCode,
         ];
-        Mail::send('emails.welcome', $sendMailData, function ($message) use ($sendMailData){
+        Mail::send('emails.welcome', $sendMailData, function ($message) use ($sendMailData) {
             $message->to($sendMailData['email'], $sendMailData['name'])->subject(trans('label.confirm_register'));
         });
 
@@ -285,5 +287,77 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         ];
 
         return $optionActive;
+    }
+
+    public function userStatistic()
+    {
+        try {
+            $user = $this->model->count();
+
+            if (!$user) {
+                return ['error' => trans('message.data_is_empty')];
+            }
+
+            $newUserLastWeek = $this->model->where('created_at', '>', Carbon::today()->subDays(7)->toDateString())->count();
+            $newUserLastWeekPercent = round(($newUserLastWeek / $user) * 100);
+            $userBets = UserBet::groupBy('user_id')->get()->count();
+            $userBetPercent = round(($userBets / $user) * 100);
+            $league = League::count();
+            $topUserBets = UserBet::select('*', DB::raw('SUM(point) as total_point'))
+                ->groupBy('user_id')
+                ->orderBy('total_point', 'DESC')
+                ->take(config('common.top_user_bet_quantity'))
+                ->get();
+            $topUserBetIds = $topUserBets->lists('user_id');
+            $topUsers = $this->model->whereIn('id', $topUserBetIds)->get();
+            $totalPoint = UserBet::sum('point');
+
+            foreach ($topUserBets as $key => $topUserBet) {
+                $topUsers[$key]['percent'] = round(($topUserBet['total_point'] / $totalPoint) * 100);
+            }
+
+            $userBetPerDay = json_encode($this->getUserBetInWeek());
+
+            return [
+                'user' => $user,
+                'new_user_percent' => $newUserLastWeekPercent,
+                'user_bet' => $userBets,
+                'user_bet_percent' => $userBetPercent,
+                'league' => $league,
+                'top_users' => $topUsers,
+                'user_bet_per_day' => $userBetPerDay,
+            ];
+        } catch (Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+    public function getUserBetInWeek()
+    {
+        $sevenDaysAgo = Carbon::today()->subDays(7);
+        $userBetInWeek = UserBet::where('created_at', '>', $sevenDaysAgo->toDateString())
+            ->where('created_at', '<', Carbon::today())->orderBy('created_at', 'ASC')->get();
+        $days[] = $sevenDaysAgo->toDateString();
+
+        for ($i = 0; $i < 7; $i++) {
+            $days[] = $sevenDaysAgo->addDay(1)->toDateString();
+        }
+
+        for ($i = 0; $i < 7; $i++) {
+            $userBetPerDay[$days[$i]]['number'] = 0;
+            $userBetPerDay[$days[$i]]['year'] = Carbon::parse($days[$i])->year;
+            $userBetPerDay[$days[$i]]['month'] = Carbon::parse($days[$i])->month;
+            $userBetPerDay[$days[$i]]['day'] = Carbon::parse($days[$i])->day;
+            for ($j = 0; $j < count($userBetInWeek); $j++) {
+                if (
+                    $userBetInWeek[$j]['created_at'] > $days[$i] &&
+                    $userBetInWeek[$j]['created_at'] < $days[$i + 1]
+                ) {
+                    $userBetPerDay[$days[$i]]['number']++;
+                }
+            }
+        }
+
+        return $userBetPerDay;
     }
 }

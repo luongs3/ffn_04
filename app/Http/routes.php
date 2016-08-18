@@ -17,6 +17,7 @@ Route::get('/', function () {
 Route::auth();
 Route::group(['middleware' => 'admin'], function () {
     Route::group(['prefix' => 'admin'], function () {
+        Route::get('', ['as' => 'admin.index', 'uses' => 'Admin\AdminController@index']);
         Route::get('/players/export', ['as' => 'admin.players.export', 'uses' => 'Admin\PlayerController@export']);
         Route::resource('players', 'Admin\PlayerController');
         Route::get('/teams/export', ['as' => 'admin.teams.export', 'uses' => 'Admin\TeamController@export']);
@@ -58,7 +59,7 @@ Route::group(['prefix' => 'auth', 'middleware' => 'web'], function() {
 });
 
 Route::get('news', 'NewsController@index');
-Route::get('news/{slug}', 'NewsController@show');
+Route::get('news/{slug}', ['as' => 'news.show', 'uses' => 'NewsController@show']);
 Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
     Route::resource('posts', 'Admin\PostController',
         ['except' => ['index', 'show']]

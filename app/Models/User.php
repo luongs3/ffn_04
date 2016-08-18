@@ -106,4 +106,10 @@ class User extends Authenticatable
     {
         return $this->role == config('common.user.role.team');
     }
+
+    public function bets()
+    {
+        return $this->hasMany(UserBet::class, 'user_id');
+    }
+
 }
