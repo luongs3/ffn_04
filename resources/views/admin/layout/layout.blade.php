@@ -16,7 +16,10 @@
             @include('admin.layout.left-sidebar')
             @include('admin.layout.navigation')
             <div class="right_col" role="main">
-                @yield('content')
+                <section id="section1">
+                    @include('admin.layout.result')
+                    @yield('content')
+                </section>
             </div>
         </div>
     </div>

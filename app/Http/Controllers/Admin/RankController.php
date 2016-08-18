@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -30,7 +29,7 @@ class RankController extends Controller
     {
         $ranks = $this->rankRepository->index('ranks');
 
-        return view('layout.grid', $ranks);
+        return view('admin.layout.grid', $ranks);
     }
 
     public function create()
@@ -91,10 +90,10 @@ class RankController extends Controller
             return redirect()->route('admin.ranks.edit', ['id' => $id])->withError($data['error']);
         }
 
-        return redirect()->route('admin.ranks.index')->withSuccess(trans('message.create_rank_successfully'));
+        return redirect()->route('admin.ranks.index')->withSuccess(trans('message.update_rank_successfully'));
     }
 
-    public function destroy($id)
+    public function destroy($ids)
     {
         if (request()->has('ids')) {
             $ids = request()->get('ids');

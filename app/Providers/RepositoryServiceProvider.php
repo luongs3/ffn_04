@@ -32,7 +32,8 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->share('layout', 'layout.layout');
+        view()->share('layout', 'admin.layout.layout');
+        view()->share('clientLayout', 'layout.layout');
     }
 
     /**
