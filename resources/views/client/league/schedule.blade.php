@@ -22,7 +22,7 @@
                         @foreach ($schedule['matches'] as $key => $schedule)
                             <thead>
                                 <tr>
-                                    <td class="schedule-matches-head" colspan="4">{{ $key }}</td>
+                                    <td class="schedule-matches-head" colspan="5">{{ $key }}</td>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,6 +32,12 @@
                                         <td>{{ $match['team1']['name'] }}</td>
                                         <td>{{ trans('label.vs') }}</td>
                                         <td>{{ $match['team2']['name'] }}</td>
+                                        <td>
+                                            <a class="btn btn-primary" role="button"
+                                                href="{{ route('matches.{match_id}.bets.create', $match['id']) }}" >
+                                                <i class="fa fa-plus-circle"></i> {{ trans('bets.bet') }}
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

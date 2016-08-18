@@ -43,4 +43,10 @@ return [
     'not_permission' => 'Your Account is not permission',
     'change_password_success' => 'Change password successfully',
     'update_user_success' => 'Update user successfully',
+    'bet_successfully' => 'Bet successfully',
+    'create_bet_fail' => 'Bet Fail! Because You have not enough point!',
+    'update_bet_success' => 'Update bet successfully',
+    'delete_success' => 'Delete bet successfully',
+    'delete_fail' => 'Delete bet fail',
+    'edit_bet_fail' => 'Edit Bet Fail',
 ];
