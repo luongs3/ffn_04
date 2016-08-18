@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -23,7 +22,7 @@ class LeagueController extends Controller
     {
         $leagues = $this->leagueRepository->index('leagues');
 
-        return view('layout.grid', $leagues);
+        return view('admin.layout.grid', $leagues);
     }
 
     public function create()
@@ -81,10 +80,10 @@ class LeagueController extends Controller
             return redirect()->route('admin.leagues.edit', ['id' => $id])->withError($data['error']);
         }
 
-        return redirect()->route('admin.leagues.index')->withSuccess(trans('message.create_league_successfully'));
+        return redirect()->route('admin.leagues.index')->withSuccess(trans('message.update_league_successfully'));
     }
 
-    public function destroy($id)
+    public function destroy($ids)
     {
         if (request()->has('ids')) {
             $ids = request()->get('ids');

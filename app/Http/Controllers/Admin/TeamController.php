@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -32,7 +31,7 @@ class TeamController extends Controller
     {
         $teams = $this->teamRepository->index('teams');
 
-        return view('layout.grid', $teams);
+        return view('admin.layout.grid', $teams);
     }
 
     public function create()
@@ -101,10 +100,10 @@ class TeamController extends Controller
             return redirect()->route('admin.teams.edit', ['id' => $id])->withError($data['error']);
         }
 
-        return redirect()->route('admin.teams.index')->withSuccess(trans('message.create_team_successfully'));
+        return redirect()->route('admin.teams.index')->withSuccess(trans('message.update_team_successfully'));
     }
 
-    public function destroy($id)
+    public function destroy($ids)
     {
         if (request()->has('ids')) {
             $ids = request()->get('ids');

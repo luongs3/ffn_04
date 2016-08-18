@@ -17,4 +17,5 @@ return [
     'substitution' => 'substitution',
     'free_kick' => 'free kick',
     'by' => 'by',
+    'subject' => ':subject',
 ];

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -25,7 +24,7 @@ class PlayerController extends Controller
     {
         $players = $this->playerRepository->index('players');
 
-        return view('layout.grid', $players);
+        return view('admin.layout.grid', $players);
     }
 
     public function create()
@@ -91,10 +90,10 @@ class PlayerController extends Controller
             return redirect()->route('admin.players.edit', ['id' => $id])->withError($data['error']);
         }
 
-        return redirect()->route('admin.players.index')->withSuccess(trans('message.create_player_successfully'));
+        return redirect()->route('admin.players.index')->withSuccess(trans('message.update_player_successfully'));
     }
 
-    public function destroy($id)
+    public function destroy($ids)
     {
         if (request()->has('ids')) {
             $ids = request()->get('ids');

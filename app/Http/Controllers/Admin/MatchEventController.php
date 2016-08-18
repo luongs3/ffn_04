@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -29,7 +28,7 @@ class MatchEventController extends Controller
     {
         $matchEvents = $this->matchEventRepository->index('match-events');
 
-        return view('layout.grid', $matchEvents);
+        return view('admin.layout.grid', $matchEvents);
     }
 
     public function create()
@@ -106,7 +105,7 @@ class MatchEventController extends Controller
             return redirect()->route('admin.match-events.edit', ['id' => $id])->withError($data['error']);
         }
 
-        return redirect()->route('admin.match-events.index')->withSuccess(trans('message.create_match_event_successfully'));
+        return redirect()->route('admin.match-events.index')->withSuccess(trans('message.update_match_event_successfully'));
     }
 
     public function destroy($ids)

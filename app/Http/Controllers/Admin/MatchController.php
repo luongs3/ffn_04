@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -38,15 +37,15 @@ class MatchController extends Controller
     {
         $matches = $this->matchRepository->index('matches');
 
-        return view('layout.grid', $matches);
+        return view('admin.layout.grid', $matches);
     }
 
     public function create()
     {
         $leagues = $this->leagueRepository->lists();
 
-        if (isset($leagues['errors'])) {
-            return redirect()->route('admin.matches.index')->withErrors($leagues['errors']);
+        if (isset($leagues['error'])) {
+            return redirect()->route('admin.matches.index')->withError($leagues['error']);
         }
 
         $teams = $this->teamRepository->lists();
@@ -114,10 +113,10 @@ class MatchController extends Controller
             return redirect()->route('admin.matches.edit', ['id' => $id])->withError($data['error']);
         }
 
-        return redirect()->route('admin.matches.index')->withSuccess(trans('message.create_match_successfully'));
+        return redirect()->route('admin.matches.index')->withSuccess(trans('message.update_match_successfully'));
     }
 
-    public function destroy($id)
+    public function destroy($ids)
     {
         if (request()->has('ids')) {
             $ids = request()->get('ids');
@@ -125,8 +124,8 @@ class MatchController extends Controller
 
         $data = $this->matchRepository->delete($ids);
 
-        if (isset($data['errors'])) {
-            session()->flash('error', $data['errors']['message']);
+        if (isset($data['error'])) {
+            session()->flash('error', $data['error']['message']);
 
             return response()->json(['success' => false]);
         }

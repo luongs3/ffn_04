@@ -8,11 +8,11 @@
 .page-header h2 {
   display: inline-block;
   margin-bottom: 5px;
+  line-height: 40px;
 }
 
 .btn-header {
   float: right;
-  margin: 6px 0 0 10px;
 }
 
 .statistic {
@@ -371,4 +371,32 @@ p.excerpt a:hover {
 .img-team {
   width: 100%;
   height: 100%;
+}
+
+.x_title h2 {
+  margin: 0 !important;
+}
+
+.select-all:hover {
+  cursor: pointer;
+}
+
+#section1 {
+  font-size: 14px !important;
+}
+
+.side-menu li a {
+  font-size: 16px;
+}
+
+.side-menu li a {
+  font-size: 16px;
+}
+
+.child_menu li a {
+  font-size: 13px !important;
+}
+
+#section1 {
+  font-size: 14px;
 }

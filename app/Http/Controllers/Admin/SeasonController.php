@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
@@ -26,7 +25,7 @@ class SeasonController extends Controller
     {
         $seasons = $this->seasonRepository->index('seasons');
 
-        return view('layout.grid', $seasons);
+        return view('admin.layout.grid', $seasons);
     }
 
     public function create()
@@ -77,10 +76,10 @@ class SeasonController extends Controller
             return redirect()->route('admin.seasons.edit', ['id' => $id])->withError($data['error']);
         }
 
-        return redirect()->route('admin.seasons.index')->withSuccess(trans('message.create_season_successfully'));
+        return redirect()->route('admin.seasons.index')->withSuccess(trans('message.update_season_successfully'));
     }
 
-    public function destroy($id)
+    public function destroy($ids)
     {
         if (request()->has('ids')) {
             $ids = request()->get('ids');
