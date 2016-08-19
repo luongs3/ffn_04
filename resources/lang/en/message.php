@@ -49,4 +49,5 @@ return [
     'delete_success' => 'Delete bet successfully',
     'delete_fail' => 'Delete bet fail',
     'edit_bet_fail' => 'Edit Bet Fail',
+    'alert_user_about_match_start' => 'Alert user about match is starting',
 ];
