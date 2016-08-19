@@ -7,5 +7,6 @@
 {!! Html::style('/bower/iCheck/skins/flat/green.css') !!}
 {!! Html::style('/bower/jqvmap/dist/jqvmap.min.css') !!}
 {!! Html::style('/bower/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') !!}
+{!! Html::style('/bower/chosen/chosen.css') !!}
 {!! Html::style('/css/custom.min.css') !!}
 {!! Html::style('/css/app.css') !!}

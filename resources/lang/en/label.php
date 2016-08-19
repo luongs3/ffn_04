@@ -123,7 +123,7 @@ return [
     'comment' => 'Comment',
     'other' => 'Other',
     'landing_page' => 'Landing Page',
-    'check_now' => 'Check Now!',
+    'check_now' => 'Check!',
     'total_users' => 'Total Users',
     'user_bet' => 'User Bet',
     'bet_activities' => 'Bet Activities',
@@ -133,4 +133,5 @@ return [
     'from_last_week' => 'From Last Week',
     'recent_posts' => 'Recent Posts',
     'sessions' => 'Sessions',
+    'profile' => 'Profile',
 ];

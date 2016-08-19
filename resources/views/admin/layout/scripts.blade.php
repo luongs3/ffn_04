@@ -16,6 +16,7 @@
 {!! Html::script('/bower/flot.orderbars/js/jquery.flot.orderBars.js') !!}
 {!! Html::script('/bower/flot-spline/js/jquery.flot.spline.min.js') !!}
 {!! Html::script('/bower/flot.curvedlines/curvedLines.js') !!}
+{!! Html::script('/bower/chosen/chosen.jquery.js') !!}
 {!! Html::script('js/custom.min.js') !!}
 {!! Html::script('js/all.js') !!}
 {!! Html::script('js/validate.js') !!}

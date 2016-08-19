@@ -308,7 +308,7 @@ p.excerpt a:hover {
 }
 
 .bet-content {
-  width:600px;
+  width: 600px;
   height: 440px;
   margin: 0 auto;
   padding: 0 auto;
@@ -338,17 +338,13 @@ p.excerpt a:hover {
 
 .choose-team-title {
   padding-left: 15px;
-  height:30px;
+  height: 30px;
   font-weight: 700;
 }
 
 .team-img {
   height: 220px;
   background: #FFFFFF;
-}
-
-.img {
-  height: 180px;
 }
 
 .radio {
@@ -363,7 +359,7 @@ p.excerpt a:hover {
 }
 
 .bet-footer {
-  float:right;
+  float: right;
   background: #BCF5CF;
   padding-top: 2px;
 }
@@ -399,4 +395,15 @@ p.excerpt a:hover {
 
 #section1 {
   font-size: 14px;
+}
+
+.chosen-container {
+  font-size: 14px;
+}
+
+.chosen-container-single .chosen-single {
+  padding: 2px 2px 2px 8px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 0;
 }
