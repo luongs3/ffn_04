@@ -17,26 +17,19 @@ Route::get('/', function () {
 Route::auth();
 Route::group(['middleware' => 'admin'], function () {
     Route::group(['prefix' => 'admin'], function () {
+        Route::resource('export', 'Admin\ExportController');
         Route::get('', ['as' => 'admin.index', 'uses' => 'Admin\AdminController@index']);
-        Route::get('/players/export', ['as' => 'admin.players.export', 'uses' => 'Admin\PlayerController@export']);
         Route::resource('players', 'Admin\PlayerController');
-        Route::get('/teams/export', ['as' => 'admin.teams.export', 'uses' => 'Admin\TeamController@export']);
-        Route::get('/teams/ajax', ['as' => 'admin.teams.ajax', 'uses' => 'Admin\TeamController@ajaxTeams']);
+        Route::resource('ajax-teams', 'Admin\AjaxTeamController');
         Route::resource('teams', 'Admin\TeamController');
-        Route::get('/leagues/export', ['as' => 'admin.leagues.export', 'uses' => 'Admin\LeagueController@export']);
         Route::resource('leagues', 'Admin\LeagueController');
-        Route::get('/seasons/export', ['as' => 'admin.seasons.export', 'uses' => 'Admin\SeasonController@export']);
-        Route::get('/seasons/ajax', ['as' => 'admin.seasons.ajax', 'uses' => 'Admin\SeasonController@ajaxSeasons']);
+        Route::resource('ajax-seasons', 'Admin\AjaxSeasonController');
         Route::resource('seasons', 'Admin\SeasonController');
-        Route::get('/ranks/export', ['as' => 'admin.ranks.export', 'uses' => 'Admin\RankController@export']);
         Route::resource('ranks', 'Admin\RankController');
-        Route::get('/matches/export', ['as' => 'admin.matches.export', 'uses' => 'Admin\MatchController@export']);
-        Route::get('/matches/{id}/match-events', ['as' => 'admin.matches.match-events', 'uses' => 'Admin\MatchController@matchEvents']);Route::get('/matches/{id}/match-events', ['as' => 'admin.matches.match-events', 'uses' => 'Admin\MatchController@matchEvents']);
         Route::resource('matches', 'Admin\MatchController');
-        Route::get('/match-events/export', ['as' => 'admin.match-events.export', 'uses' => 'Admin\MatchEventController@export']);
-        Route::get('/match-events/match-names', ['as' => 'admin.match-events.match-names', 'uses' => 'Admin\MatchEventController@getMatchNames']);
+        Route::resource('matches/{id}/match-events','Admin\EventMatchController');
+        Route::resource('/seasons/{id}/matches', 'Admin\MatchSeasonController');
         Route::resource('match-events', 'Admin\MatchEventController');
-        Route::get('users/export', ['as'  => 'admin.users.export', 'uses' => 'Admin\UserController@export']);
         Route::resource('users', 'Admin\UserController');
         Route::resource('posts', 'Admin\PostController');
     });

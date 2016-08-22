@@ -98,11 +98,6 @@ class SeasonController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function export()
-    {
-        $this->seasonRepository->export('season');
-    }
-
     public function ajaxSeasons()
     {
         $filter = request()->only('league_id');

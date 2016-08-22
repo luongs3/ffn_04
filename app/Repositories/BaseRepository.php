@@ -11,7 +11,6 @@ use App\Models\LeagueMatch;
 use Carbon\Carbon;
 use Exception;
 use DB;
-use Excel;
 use App\Models\Team;
 use App\Models\Match;
 
@@ -128,16 +127,6 @@ abstract class BaseRepository
             DB::rollBack();
             return ['error' => $ex->getMessage()];
         }
-    }
-
-    public function export($subject)
-    {
-        $data = $this->model->all();
-        Excel::create($subject, function ($excel) use ($data) {
-            $excel->sheet('sheet_name', function ($sheet) use ($data) {
-                $sheet->fromArray($data);
-            });
-        })->export('csv');
     }
 
     public function uploadImage($input, $imageField, $id = null)

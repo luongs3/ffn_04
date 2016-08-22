@@ -134,4 +134,6 @@ return [
     'recent_posts' => 'Recent Posts',
     'sessions' => 'Sessions',
     'profile' => 'Profile',
+    'events' => 'Events',
+    'delete' => 'Delete',
 ];

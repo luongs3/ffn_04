@@ -111,9 +111,4 @@ class PlayerController extends Controller
 
         return response()->json(['success' => true]);
     }
-
-    public function export()
-    {
-        $this->playerRepository->export('player');
-    }
 }

@@ -40,6 +40,7 @@ var Event = React.createClass({
     }
 });
 
+var event = $('#match-events').data('event');
 var EventBox = React.createClass({
     getEvents: function () {
         $.ajax({
@@ -76,7 +77,9 @@ var EventBox = React.createClass({
     render: function () {
         return (
             <div className='eventBox'>
-                <h3>Events</h3>
+                <div className="page-header">
+                    <h2>{event}</h2>
+                </div>
                 <EventForm matchId={this.props.matchId} onEventSubmit={this.handleEventSubmit}/>
                 <EventList data={this.state.data}/>
             </div>

@@ -36,7 +36,7 @@
                                 <button id="btn-export" type="button"
                                     class="btn btn-default btn-lg btn-header"
                                     data-manage="{{ route('admin.' . $subject . '.index') }}"
-                                    data-url="{{ route('admin.' . $subject . '.' . 'export') }}">
+                                    data-url="{{ action('Admin\ExportController@index', ['subject' => $subject]) }}">
                                 {{ trans('label.export') }}
                                 </button>
                             </li>
