@@ -160,10 +160,6 @@ class PostRepository implements PostRepositoryInterface
         try {
             $posts = $this->model->with('user')->isPosted()->latest('published_at')->published()->take(config('news.latest_posts'))->get();
 
-            if (!count($posts)) {
-                return ['error' => trans('message.item_not_exist')];
-            }
-
             foreach ($posts as $key => $post) {
                 $posts[$key]['time_ago'] = $post['published_at']->diffForHumans();
             }
