@@ -22,6 +22,8 @@ use App\Repositories\MatchEvent\MatchEventRepositoryInterface;
 use App\Repositories\MatchEvent\MatchEventRepository;
 use App\Repositories\UserBet\UserBetRepositoryInterface;
 use App\Repositories\UserBet\UserBetRepository;
+use App\Repositories\Message\MessageRepository;
+use App\Repositories\Message\MessageRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -52,5 +54,6 @@ class RepositoryServiceProvider extends ServiceProvider
         App::bind(MatchRepositoryInterface::class, MatchRepository::class);
         App::bind(MatchEventRepositoryInterface::class, MatchEventRepository::class);
         App::bind(UserBetRepositoryInterface::class, UserBetRepository::class);
+        App::bind(MessageRepositoryInterface::class, MessageRepository::class);
     }
 }

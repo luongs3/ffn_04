@@ -360,4 +360,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         return $userBetPerDay;
     }
+
+    public function increaseMessage($users, $number)
+    {
+        $userList = $users->lists('id');
+        return $this->model->whereIn('id', $userList)->increment('unread_message_number', $number);
+    }
+
+    public function whereRole($role)
+    {
+        return $this->model->where('role', $role)->get();
+    }
 }

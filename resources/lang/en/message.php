@@ -50,4 +50,6 @@ return [
     'delete_fail' => 'Delete bet fail',
     'edit_bet_fail' => 'Edit Bet Fail',
     'alert_user_about_match_start' => 'Alert user about match is starting',
+    'message_match_start' => 'Match :match will start in :left_time, at :start_time',
+    'message_default' => 'Incorrect message type, please try again',
 ];

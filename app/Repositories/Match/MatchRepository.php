@@ -113,4 +113,13 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             return ['error' => $ex->getMessage()];
         }
     }
+
+    public function getRecentMatches()
+    {
+        $checkTime = config('common.message.check_time');
+
+        return $this->model->where('start_time', '<', Carbon::now()->addMinutes($checkTime))
+            ->where('start_time', '>', Carbon::now())
+            ->get();
+    }
 }

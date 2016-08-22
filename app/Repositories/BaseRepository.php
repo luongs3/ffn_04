@@ -229,4 +229,21 @@ abstract class BaseRepository
 
         return $match;
     }
+
+    public function getMessageContent($messageType, $data)
+    {
+        switch($messageType) {
+            case config('common.message.type.match_start'):
+                $match = $this->getMatchName($data);
+                $match['left_time'] = Carbon::parse($match['start_time'])->diffForHumans();
+
+                return trans('message.message_match_start', [
+                    'match' => $match['name'],
+                    'left_time' => $match['left_time'],
+                    'start_time' => $match['start_time'],
+                ]);
+            default:
+                return trans('message.message_default');
+        }
+    }
 }

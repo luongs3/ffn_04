@@ -54,4 +54,17 @@ return [
         'limit' => 1,
     ],
     'top_user_bet_quantity' => 4,
+    'message' => [
+        'type' => [
+            'match_start' => 0,
+            'match_end' => 1,
+            'user_bet' => 2,
+            'comment_reply' => 3,
+        ],
+        'check_time' => 10,
+    ],
+    'notification' => [
+        'no' => 0,
+        'yes' => 1,
+    ],
 ];

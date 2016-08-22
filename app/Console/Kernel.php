@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\CheckUser::class,
         Commands\CheckPost::class,
+        Commands\MatchStartAlert::class,
     ];
 
     /**
@@ -29,5 +30,6 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command('check:user')->daily();
         $schedule->command('check:post')->everyMinute();
+        $schedule->command('alert:match_start')->everyFiveMinutes();
     }
 }
