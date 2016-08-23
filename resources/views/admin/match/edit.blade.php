@@ -4,7 +4,11 @@
     <div class="page-header">
         <h2>{{ trans('label.match_profile') }}</h2>
         <button type="submit" class="btn btn-default btn-lg btn-header">{{ trans('label.save') }}</button>
-        <button type="button" class="btn btn-default btn-lg btn-header" id="btn-back">{{ trans('label.back') }}</button>
+        <button type="button" class="btn btn-default btn-lg btn-header" id="btn-back"
+            data-placeholders="{{ json_encode($placeHolders) }}"
+        >
+            {{ trans('label.back') }}
+        </button>
     </div>
     @include('layout.error')
     <div class="col-sm-8">
@@ -50,18 +54,19 @@
                 {!! Form::text('end_time', $match['end_time'], ['class' => 'form-control date-time']) !!}
             </div>
         </div>
+        <div
+                class="col-sm-8"
+                id="match-events"
+                data-url="{{ action('Admin\EventMatchController@index', ['id' => $match['id']]) }}"
+                data-match-id="{{ $match['id'] }}"
+                data-icon="{{ asset(config('common.blank_icon')) }}"
+                data-event-type="{{ $eventTypes }}"
+                data-placeholder="{{ $placeHolders }}"
+                data-event="{{ trans('label.events') }}"
+        >
+        </div>
     </div>
     {!! Form::close() !!}
-    <div
-        class="col-sm-8"
-        id="match-events"
-        data-url="{{ route('admin.matches.match-events', ['id' => $match['id']]) }}"
-        data-match-id="{{ $match['id'] }}"
-        data-icon="{{ asset(config('common.blank_icon')) }}"
-        data-event-type="{{ $eventTypes }}"
-        data-placeholder="{{ $placeHolders }}"
-    >
-    </div>
 @endsection
 @section('script')
     {!! Html::script('/bower/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js') !!}

@@ -135,11 +135,6 @@ class MatchController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function export()
-    {
-        $this->matchRepository->export('match');
-    }
-
     public function matchEvents($id)
     {
         $options = ['filter' => ['match_id' => $id]];

@@ -4,7 +4,11 @@
     <div class="page-header">
         <h2>{{ trans('label.create_match_event') }}</h2>
         <button type="submit" class="btn btn-default btn-lg btn-header">{{ trans('label.save') }}</button>
-        <button type="button" class="btn btn-default btn-lg btn-header" id="btn-back">{{ trans('label.back') }}</button>
+        <button type="button" class="btn btn-default btn-lg btn-header" id="btn-back"
+            data-placeholders="{{ json_encode($placeHolders) }}"
+        >
+            {{ trans('label.back') }}
+        </button>
     </div>
     @include('layout.error')
     <div class="col-sm-8">

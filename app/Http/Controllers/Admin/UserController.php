@@ -159,9 +159,4 @@ class UserController extends Controller
 
         return response()->json(['ids' => $ids]);
     }
-
-    public function export()
-    {
-        $this->userRepository->export('user');
-    }
 }

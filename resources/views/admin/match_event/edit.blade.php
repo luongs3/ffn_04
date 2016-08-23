@@ -6,9 +6,10 @@
         <button type="submit" class="btn btn-default btn-lg btn-header">{{ trans('label.save') }}</button>
         <button type="button" class="btn btn-default btn-lg btn-header" id="btn-back">{{ trans('label.back') }}</button>
         <button type="button" class="btn btn-default btn-lg btn-header" id="btn-destroy"
-                data-redirect="{{ route('admin.match-events.index') }}"
-                data-url="{{ route('admin.match-events.destroy', ['id' => $matchEvent['id']]) }}">
-            {{ trans('general/label.delete') }}
+            data-redirect="{{ route('admin.match-events.index') }}"
+            data-url="{{ route('admin.match-events.destroy', ['id' => $matchEvent['id']]) }}"
+        >
+            {{ trans('label.delete') }}
         </button>
     </div>
     @include('layout.error')

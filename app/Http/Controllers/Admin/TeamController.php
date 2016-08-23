@@ -122,11 +122,6 @@ class TeamController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function export()
-    {
-        $this->teamRepository->export('team');
-    }
-
     public function ajaxTeams()
     {
         $filter = request()->only('league_id');

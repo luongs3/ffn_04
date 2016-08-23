@@ -101,9 +101,4 @@ class LeagueController extends Controller
 
         return response()->json(['success' => true]);
     }
-
-    public function export()
-    {
-        $this->leagueRepository->export('league');
-    }
 }

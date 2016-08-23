@@ -127,11 +127,6 @@ class MatchEventController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function export()
-    {
-        $this->matchEventRepository->export('matchEvent');
-    }
-
     public function getMatchNames()
     {
         $filter = request()->only('season_id');

@@ -24,6 +24,8 @@ use App\Repositories\UserBet\UserBetRepositoryInterface;
 use App\Repositories\UserBet\UserBetRepository;
 use App\Repositories\Message\MessageRepository;
 use App\Repositories\Message\MessageRepositoryInterface;
+use App\Repositories\Export\ExportRepository;
+use App\Repositories\Export\ExportRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -36,6 +38,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         view()->share('layout', 'admin.layout.layout');
         view()->share('clientLayout', 'layout.layout');
+        view()->share('placeHolders', config('common.place_holders'));
     }
 
     /**
@@ -55,5 +58,6 @@ class RepositoryServiceProvider extends ServiceProvider
         App::bind(MatchEventRepositoryInterface::class, MatchEventRepository::class);
         App::bind(UserBetRepositoryInterface::class, UserBetRepository::class);
         App::bind(MessageRepositoryInterface::class, MessageRepository::class);
+        App::bind(ExportRepositoryInterface::class, ExportRepository::class);
     }
 }

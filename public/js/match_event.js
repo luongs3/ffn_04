@@ -8,28 +8,17 @@ $('#season_id').click(function () {
 $('#league_id').change(function () {
     $.ajax({
         type: 'GET',
-        url: '/admin/seasons/ajax?league_id=' + $(this).val(),
+        url: '/admin/ajax-seasons?league_id=' + $(this).val(),
         success: function (data) {
             var seasons = $('#season_id');
-            seasons.empty().append('<option value="">' + '-- Choose one --' + '</option>');
+            var placeHolder = $('#btn-back').data('placeholders');
+            seasons.empty().append('<option value="">' + placeHolder['choose_one'] + '</option>');
             for (i = 0; i < data.length; i++) {
                 seasons.append('<option value=' + data[i].id + '>' + data[i].name + '</option>');
             }
+            seasons.trigger('chosen:updated');
         }
     });
-
-    $.ajax({
-        type: 'GET',
-        url: '/admin/match-events/match-names?season_id=' + $('#season_id').val(),
-        success: function (data) {
-            $('.teams').map(function () {
-                $(this).empty().append('<option value="">' + '-- Choose one --' + '</option>');
-                for (i = 0; i < data.length; i++) {
-                    $(this).append('<option value=' + data[i].id + '>' + data[i].name + '</option>');
-                }
-            });
-        }
-    })
 });
 
 $('#match_id').click(function () {
@@ -42,13 +31,16 @@ $('#match_id').click(function () {
 $('#season_id').change(function () {
     $.ajax({
         type: 'GET',
-        url: '/admin/match-events/match-names?season_id=' + $(this).val(),
+        url: '/admin/seasons/' + $(this).val() + '/matches',
         success: function (data) {
-            var match = $('#match_id');
-            match.empty().append('<option value="">' + '-- Choose one --' + '</option>');
+            console.log(data);
+            var matches = $('#match_id');
+            var placeHolder = $('#btn-back').data('placeholders');
+            matches.empty().append('<option value="">' + placeHolder['choose_one'] + '</option>');
             for (i = 0; i < data.length; i++) {
-                match.append('<option value=' + data[i].id + '>' + data[i].name + '</option>');
+                matches.append('<option value=' + data[i].id + '>' + data[i].name + '</option>');
             }
+            matches.trigger('chosen:updated');
         }
     })
 });
