@@ -1,12 +1,10 @@
 <?php
-
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\League\LeagueRepositoryInterface;
-use Carbon\Carbon;
 
-class LeagueController extends Controller
+class LeagueRankController extends Controller
 {
     private $leagueRepository;
 
@@ -15,8 +13,14 @@ class LeagueController extends Controller
         $this->leagueRepository = $leagueRepository;
     }
 
-    public function show($id)
+    public function index($leagueId)
     {
+        $rank = $this->leagueRepository->rank($leagueId);
 
+        if (isset($rank['error'])) {
+            return redirect()->route('home')->withError($rank['error']);
+        }
+
+        return view('client.league.rank', compact('rank'));
     }
 }

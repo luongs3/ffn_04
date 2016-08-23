@@ -147,6 +147,3 @@
         </div>
     </div>
 @endsection
-@section('script')
-    {!! Html::script('/js/index_admin.js') !!}
-@endsection
