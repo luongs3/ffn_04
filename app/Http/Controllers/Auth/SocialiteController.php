@@ -34,10 +34,10 @@ class SocialiteController extends Controller
                 $user = $this->userRepository->createSocialUser($socialUser, $social);
                 Auth::login($user);
             } catch (Exception $e) {
-                return redirect('/')->withError($e->getMessage());
+                return redirect('/home')->withError($e->getMessage());
             }
         }
 
-        return redirect('/');
+        return redirect('/home');
     }
 }

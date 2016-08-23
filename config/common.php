@@ -67,4 +67,9 @@ return [
         'no' => 0,
         'yes' => 1,
     ],
+    'comment' => [
+        'commentable_type' => [
+            'post_id' => 0,
+        ],
+    ],
 ];

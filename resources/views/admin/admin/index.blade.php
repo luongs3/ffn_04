@@ -126,7 +126,7 @@
                                         <div class="block">
                                             <div class="block_content">
                                                 <h2 class="title">
-                                                    <a href="{{ route('news.show', ['slug' => $post['slug']]) }}">{{ $post['title'] }}</a>
+                                                    <a href="{{ action('NewsController@show', ['slug' => $post['slug']]) }}">{{ $post['title'] }}</a>
                                                 </h2>
                                                 <div class="byline">
                                                     <span>{{ $post['time_ago'] }}</span> {{ trans('general.by') }} <a>{{ $post['user']['name'] }}</a>

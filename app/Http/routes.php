@@ -58,6 +58,8 @@ Route::group(['middleware' => 'auth', 'prefix' => 'admin'], function () {
         ['except' => ['index', 'show']]
     );
 });
+Route::get('news/{slug}', 'NewsController@show');
+Route::resource('comments', 'User\CommentController');
 Route::group(['prefix' => 'user', 'middleware' => 'auth'], function() {
     Route::resource('profiles', 'User\UserController');
     Route::get('/profiles/getChangePassword/{id}', [

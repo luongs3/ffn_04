@@ -5,17 +5,19 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Auth;
+use App\Repositories\Post\PostRepositoryInterface;
 
 class HomeController extends Controller
 {
+    protected $postRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(PostRepositoryInterface $postRepository)
     {
-        $this->middleware('auth');
+        $this->postRepository = $postRepository;
     }
 
     /**
@@ -25,7 +27,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $posts = $this->postRepository->index();
+
+        return view('home', ['posts' => $posts]);
     }
 
     public function getLogout()

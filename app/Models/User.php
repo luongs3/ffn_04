@@ -121,4 +121,9 @@ class User extends Authenticatable
     {
         return $query->where('notification', config('common.notification.yes'));
     }
+
+    public function getAvatarAttribute($avatar = null)
+    {
+        return isset($avatar) ? $avatar : config('common.user.default_avatar');
+    }
 }

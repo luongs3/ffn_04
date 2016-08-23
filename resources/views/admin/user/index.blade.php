@@ -19,11 +19,12 @@
                 {{ trans('label.delete') }}
             </button>
             <button id="btn-export" type="button"
-                    class="btn btn-default btn-lg btn-header"
-                    data-manage="{{ route('admin.users.index') }}"
-                    data-url="{{ route('admin.users.export') }}">
-                {{ trans('label.export') }}
+                class="btn btn-default btn-lg btn-header"
+                data-manage="{{ route('admin.users.index') }}"
+                data-url="{{ action('Admin\ExportController@index', ['subject' => 'users']) }}">
+            {{ trans('label.export') }}
             </button>
+            <div class="clearfix"></div>
         </div>
         <div class="page-content">
             @include('common.errors')
