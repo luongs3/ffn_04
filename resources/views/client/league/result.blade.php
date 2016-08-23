@@ -12,7 +12,7 @@
                 <i class="glyphicon glyphicon-chevron-right"></i>
                     <span>{{ $result['season']['name'] }}</span>
                 <i class="glyphicon glyphicon-chevron-right"></i>
-                <a href="{{ route('leagues.result', ['id' => $result['league']['id']]) }}">
+                <a href="{{ route('leagues.{id}.results.index', ['id' => $result['league']['id']]) }}">
                     <span>{{ trans('label.result') }}</span>
                 </a>
             </div>

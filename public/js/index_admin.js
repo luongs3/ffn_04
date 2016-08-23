@@ -76,4 +76,6 @@ $(document).ready(function () {
     ga('create', 'UA-82691717-1', 'auto');
     ga('send', 'pageview');
     <!-- /google analytic -->
+
+    $('select').chosen();
 });

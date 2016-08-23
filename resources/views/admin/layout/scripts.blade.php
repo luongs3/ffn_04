@@ -18,5 +18,6 @@
 {!! Html::script('/bower/flot.curvedlines/curvedLines.js') !!}
 {!! Html::script('/bower/chosen/chosen.jquery.js') !!}
 {!! Html::script('js/custom.min.js') !!}
+{!! Html::script('js/index_admin.js') !!}
 {!! Html::script('js/all.js') !!}
 {!! Html::script('js/validate.js') !!}
