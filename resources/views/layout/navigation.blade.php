@@ -2,14 +2,10 @@
 <div class="top_nav">
     <div class="nav_menu">
         <nav>
-            <div class="nav toggle">
-                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-            </div>
-
             <ul class="nav navbar-nav navbar-right">
                 <li class="">
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ url(Auth::user()->avatar) }}" alt="">
+                        <img src="{{ Auth::user()->avatar }}" alt="">
                         {{ Auth::user()->name }}
                         <span class=" fa fa-angle-down"></span>
                     </a>
@@ -34,7 +30,7 @@
                 </li>
 
                 <li id="user-message" role="presentation" class="dropdown"
-                    data-url="{{ route('admin.ajax-messages.index') }}"
+                    data-url="{{ route('users.{id}.messages.index', ['id' => Auth::user()->id]) }}"
                     data-user-id="{{ Auth::user()->id }}"
                     data-messages="{{ trans('label.messages') }}"
                     data-type="{{ json_encode(config('common.message.type')) }}"

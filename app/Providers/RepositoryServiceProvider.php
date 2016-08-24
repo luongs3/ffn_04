@@ -28,6 +28,8 @@ use App\Repositories\Export\ExportRepository;
 use App\Repositories\Export\ExportRepositoryInterface;
 use App\Repositories\Comment\CommentRepositoryInterface;
 use App\Repositories\Comment\CommentRepository;
+use App\Repositories\AdminMessage\AdminMessageRepository;
+use App\Repositories\AdminMessage\AdminMessageRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -62,5 +64,6 @@ class RepositoryServiceProvider extends ServiceProvider
         App::bind(MessageRepositoryInterface::class, MessageRepository::class);
         App::bind(ExportRepositoryInterface::class, ExportRepository::class);
         App::bind(CommentRepositoryInterface::class, CommentRepository::class);
+        App::bind(AdminMessageRepositoryInterface::class, AdminMessageRepository::class);
     }
 }

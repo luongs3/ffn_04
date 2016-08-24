@@ -1,15 +1,15 @@
 <?php
-
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Client;
 
 use App\Http\Requests\UserBetRequest;
 use Auth;
+use App\Http\Controllers\Controller;
 use App\Repositories\UserBet\UserBetRepositoryInterface;
 use App\Repositories\Match\MatchRepositoryInterface;
 use App\Repositories\Team\TeamRepositoryInterface;
 use App\Repositories\League\LeagueRepositoryInterface;
 
-class UserBetsController extends Controller
+class MatchBetController extends Controller
 {
     private $userBetRepository;
     private $matchRepository;
@@ -28,11 +28,6 @@ class UserBetsController extends Controller
         $this->leagueRepository = $leagueRepository;
     }
 
-    public function index()
-    {
-
-    }
-
     public function create($matchId)
     {
         $match = $this->matchRepository->show($matchId);
@@ -45,10 +40,10 @@ class UserBetsController extends Controller
         if ((int)$request->point <= Auth::user()->point) {
             $userBet = $this->userBetRepository->bet($request, $id);
 
-            return redirect()->action('UserBetsController@myBets')->with(['message' => trans('message.bet_successfully')]);
+            return redirect()->action('Client\UserBetController@index', ['id' => Auth::user()->id])->with(['message' => trans('message.bet_successfully')]);
         }
 
-        return redirect()->action('UserBetsController@myBets')->withErrors(trans('message.create_bet_fail'));
+        return redirect()->action('Client\UserBetController@index', ['id' => Auth::user()->id])->withErrors(trans('message.create_bet_fail'));
     }
 
     public function edit($matchId, $id)
@@ -64,12 +59,12 @@ class UserBetsController extends Controller
         $match = $this->matchRepository->show($matchId);
 
         if ((int)$request->point > Auth::user()->point) {
-            return redirect()->action('UserBetsController@myBets')->withErrors(trans('message.edit_bet_fail'));
+            return redirect()->action('Client\UserBetController@index', ['id' => Auth::user()->id])->withErrors(trans('message.edit_bet_fail'));
         }
 
         $userBet = $this->userBetRepository->updateBets($request, $id);
 
-        return redirect()->action('UserBetsController@myBets')->with(['message' => trans('message.update_bet_success')]);
+        return redirect()->action('Client\UserBetController@index', ['id' => Auth::user()->id])->with(['message' => trans('message.update_bet_success')]);
     }
 
     public function destroy($matchId, $id)
@@ -79,18 +74,11 @@ class UserBetsController extends Controller
             $userBetID = $this->userBetRepository->show($id);
             $userBetID->delete();
 
-            return redirect()->action('UserBetsController@myBets')
+            return redirect()->action('Client\UserBetController@index')
                 ->with(['message' => trans('message.delete_success')]);
         } catch(Exception $e) {
-            return redirect()->action('UserBetsController@myBets')
+            return redirect()->action('Client\UserBetController@index')
                 ->withErrors(trans('message.delete_fail'));
         }
-    }
-
-    public function myBets()
-    {
-        $myBets = $this->userBetRepository->list();
-
-        return view('userbet.list', compact('myBets'));
     }
 }

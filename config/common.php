@@ -40,7 +40,7 @@ return [
         'title' => 'Your Event title',
         'content' => 'Your Event content',
         'event_time' => 'Your Event time',
-        'choose_one' => '-- Choose one --'
+        'choose_one' => '-- Choose one --',
     ],
     'extra_day' => 3,
     'score' => [
@@ -62,6 +62,7 @@ return [
             'comment_reply' => 3,
         ],
         'check_time' => 10,
+        'user_message_limit' => 5,
     ],
     'notification' => [
         'no' => 0,
@@ -71,5 +72,13 @@ return [
         'commentable_type' => [
             'post_id' => 0,
         ],
+    ],
+    'football' => [
+        'default_image' => 'images/football.png',
+    ],
+    'bet' => [
+        'score_ratio' => 2,
+        'win' => 1,
+        'lose' => 0,
     ],
 ];

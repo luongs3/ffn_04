@@ -2,9 +2,7 @@
 namespace App\Listeners;
 
 use App\Events\UpdateMatch;
-use App\Models\Match;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Repositories\UserBet\UserBetRepositoryInterface;
 use App\Repositories\Rank\RankRepositoryInterface;
 use App\Repositories\Match\MatchRepositoryInterface;
 
@@ -12,6 +10,7 @@ class UpdateMatchListener
 {
     private $rankRepository;
     private $matchRepository;
+    private $userBetRepository;
 
     /**
      * Create the event listener.
@@ -20,10 +19,12 @@ class UpdateMatchListener
      */
     public function __construct(
         RankRepositoryInterface $rankRepository,
-        MatchRepositoryInterface $matchRepository
+        MatchRepositoryInterface $matchRepository,
+        UserBetRepositoryInterface $userBetRepository
     ) {
         $this->rankRepository = $rankRepository;
         $this->matchRepository = $matchRepository;
+        $this->userBetRepository = $userBetRepository;
     }
 
     /**
@@ -35,9 +36,11 @@ class UpdateMatchListener
     public function handle(UpdateMatch $event)
     {
         $match = $event->match;
+        $oldMatch = $this->matchRepository->show($match['id']);
 
-        if ($match['end_time'] != '0000-00-00 00:00:00') {
+        if (($match['end_time'] != '0000-00-00 00:00:00') && $oldMatch['end_time'] != $match['end_time']) {
             $this->rankRepository->updateRankFromMatch($match);
+            $this->userBetRepository->calculateResult($match);
         }
     }
 }

@@ -34,7 +34,7 @@
                                         <td>{{ $match['team2']['name'] }}</td>
                                         <td>
                                             <a class="btn btn-primary" role="button"
-                                                href="{{ route('matches.{match_id}.bets.create', $match['id']) }}" >
+                                                href="{{ route('matches.{id}.bets.create', $match['id']) }}" >
                                                 <i class="fa fa-plus-circle"></i> {{ trans('bets.bet') }}
                                             </a>
                                         </td>

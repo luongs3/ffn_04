@@ -231,6 +231,15 @@ abstract class BaseRepository
                     'left_time' => $match['left_time'],
                     'start_time' => $match['start_time'],
                 ]);
+            case config('common.message.type.user_bet'):
+                $user = $data->user;
+                $match = $data->match;
+                $match = $this->getMatchName($match);
+                return trans('message.message_user_bet', [
+                    'user' => $user['name'],
+                    'match' => $match['name'],
+                    'created_at' => $data['created_at'],
+                ]);
             default:
                 return trans('message.message_default');
         }

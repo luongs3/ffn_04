@@ -6,7 +6,7 @@
                 {{ trans('bets.header') }}
             </div>
             {!! Form::model($userBet, [
-                'route' => ['matches.{match_id}.bets.update', $userBet->match_id, $userBet->id],
+                'route' => ['matches.{id}.bets.update', $userBet->match_id, $userBet->id],
                 'method' => 'PATCH',
                 'class' => 'form-horizontal required'
                 ])

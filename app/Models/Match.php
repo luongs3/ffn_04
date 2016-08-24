@@ -48,4 +48,9 @@ class Match extends Model
     {
         return $this->hasMany(MatchEvent::class);
     }
+
+    public function userBets()
+    {
+        return $this->hasMany(UserBet::class);
+    }
 }

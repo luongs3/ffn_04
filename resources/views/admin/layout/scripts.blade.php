@@ -17,6 +17,12 @@
 {!! Html::script('/bower/flot-spline/js/jquery.flot.spline.min.js') !!}
 {!! Html::script('/bower/flot.curvedlines/curvedLines.js') !!}
 {!! Html::script('/bower/chosen/chosen.jquery.js') !!}
+{!! Html::script('/bower/browser-js/browser.min.js') !!}
+{!! Html::script('/bower/react/react.min.js') !!}
+{!! Html::script('/bower/react/react-dom.min.js') !!}
+{!! Html::script('/bower/react/react-dom-server.min.js') !!}
+{!! Html::script('/bower/react/react-with-addons.min.js') !!}
+{!! Html::script('js/admin_message.js', ['type' => 'text/babel']) !!}
 {!! Html::script('js/custom.min.js') !!}
 {!! Html::script('js/index_admin.js') !!}
 {!! Html::script('js/all.js') !!}
