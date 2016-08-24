@@ -59,8 +59,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        $user = $this->userRepository->show($id);
+
         return view('user.show', [
-            'user' => Auth::user()
+            'user' => $user,
         ]);
     }
 

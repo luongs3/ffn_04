@@ -25,19 +25,21 @@
                     <div class="form-group">
                         {!! Form::label('avatar', trans('label.avatar'), ['class' => 'col-md-3 control-label']) !!}
                         <div class="col-md-6">
-                            <img src="{{ url(isset($user['avatar']) ? $user['avatar'] : config('common.user.default_avatar')) }}" class="img-thumbnail img-row">
+                            <img src="{{ url($user['avatar']) }}" class="img-thumbnail img-row">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-md-7 col-md-offset-3">
-                            <a class="btn btn-info" href="{{ url('user/profiles/' . $user->id . '/edit') }}">
-                                {{ trans('label.update_profile') }}
-                            </a>
-                            <a class="btn btn-info" href="{{ url('user/profiles/getChangePassword/' . $user->id) }}">
-                                {{ trans('label.change_password') }}
-                            </a>
+                    @can ('updateInfo', $user)
+                        <div class="form-group">
+                            <div class="col-md-7 col-md-offset-3">
+                                <a class="btn btn-info" href="{{ action('User\UserController@edit', [$user->id]) }}">
+                                    {{ trans('label.update_profile') }}
+                                </a>
+                                <a class="btn btn-info" href="{{ action('User\UserController@getChangePassword', [$user->id]) }}">
+                                    {{ trans('label.change_password') }}
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    @endcan
                 </div>
             </div>
         </div>

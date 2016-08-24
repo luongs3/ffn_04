@@ -19,4 +19,9 @@ class LeagueController extends Controller
     {
 
     }
+
+    public function show($id)
+    {
+
+    }
 }

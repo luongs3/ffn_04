@@ -136,4 +136,7 @@ return [
     'profile' => 'Profile',
     'events' => 'Events',
     'delete' => 'Delete',
+    'comment' => 'Comment',
+    'news' => 'News',
+    'cancel' => 'Cancel',
 ];

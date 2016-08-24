@@ -1,0 +1,24 @@
+#comments {
+    margin: 15px 0px 0px 15px;
+}
+.username-comment {
+    margin-right: 10px;
+}
+.avatar-comment {
+    height: 50px;
+    width: 50px;
+    margin-left: 50px;
+}
+.content-comment {
+    padding: 0px 10px 10px 0px;
+}
+.content-comment ul {
+    list-style-type: none;
+}
+.feature-comment {
+    text-align: right;
+}
+.news-border {
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}

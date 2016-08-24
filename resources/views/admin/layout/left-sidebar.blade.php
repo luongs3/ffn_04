@@ -10,7 +10,7 @@
         <!-- menu profile quick info -->
         <div class="profile">
             <div class="profile_pic">
-                <img src="{{ Auth::user()->avatar }}" class="img-circle profile_img">
+                <img src="{{ url(Auth::user()->avatar) }}" class="img-circle profile_img">
             </div>
             <div class="profile_info">
                 <span>{{ trans('label.welcome') }}</span>

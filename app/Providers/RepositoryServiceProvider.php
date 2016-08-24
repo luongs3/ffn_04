@@ -26,6 +26,8 @@ use App\Repositories\Message\MessageRepository;
 use App\Repositories\Message\MessageRepositoryInterface;
 use App\Repositories\Export\ExportRepository;
 use App\Repositories\Export\ExportRepositoryInterface;
+use App\Repositories\Comment\CommentRepositoryInterface;
+use App\Repositories\Comment\CommentRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -59,5 +61,6 @@ class RepositoryServiceProvider extends ServiceProvider
         App::bind(UserBetRepositoryInterface::class, UserBetRepository::class);
         App::bind(MessageRepositoryInterface::class, MessageRepository::class);
         App::bind(ExportRepositoryInterface::class, ExportRepository::class);
+        App::bind(CommentRepositoryInterface::class, CommentRepository::class);
     }
 }

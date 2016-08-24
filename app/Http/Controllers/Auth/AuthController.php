@@ -98,7 +98,7 @@ class AuthController extends Controller
                 return redirect()->route('admin.users.index');
             }
 
-            return redirect('/');
+            return redirect('/home');
         } else {
             return redirect()->back()->withErrors(trans('message.login_error'));
         }
@@ -127,7 +127,7 @@ class AuthController extends Controller
         try {
             $user = $this->userRepository->create($request, $confirmationCode);
         } catch (Exception $e) {
-            return redirect('/')->withError($e->getMessage());
+            return redirect('/home')->withError($e->getMessage());
         }
 
         return redirect()->back()->withErrors(trans('message.register_active'));

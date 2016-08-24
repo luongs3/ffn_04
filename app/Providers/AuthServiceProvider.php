@@ -29,5 +29,8 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('updatePost', function ($user, $post) {
             return $user->id === $post->user_id;
         });
+        $gate->define('updateInfo', function ($user, $userUpdate) {
+            return $user->id === $userUpdate->id;
+        });
     }
 }
