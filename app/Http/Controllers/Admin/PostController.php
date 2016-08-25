@@ -49,7 +49,7 @@ class PostController extends Controller
         if ($post->isOwnedBy(Auth::user())) {
             $updatedPost = $this->postRepository->createOrUpdate($request, $id);
 
-            if ($updatedPost->is_post) {
+            if ($updatedPost) {
                 Alert::success(trans('news.post_updated_success'),
                     trans('news.good_job'))->persistent(trans('news.close'));
             } else {

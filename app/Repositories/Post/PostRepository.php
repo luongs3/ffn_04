@@ -58,7 +58,7 @@ class PostRepository implements PostRepositoryInterface
         $post->league_id = $request->league_id;
         $post->content = $request->content;
         $post->is_post = $request->is_post;
-        $post->published_at = $request->is_post ? $request->published_at : Carbon::now();
+        $post->published_at = ($request->is_post == config('common.post.un_published')) ? $request->published_at : Carbon::now();
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
