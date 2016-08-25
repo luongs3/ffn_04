@@ -23,7 +23,7 @@
                 <td>{{ $bet->team->name }}</td>
                 <td>{{ $bet->point }}</td>
                 <td class="center">
-                    {!! Form::open(['method' => 'GET', 'route' => ['matches.{match_id}.bets.edit', $bet->match_id, $bet->id]]) !!}
+                    {!! Form::open(['method' => 'GET', 'route' => ['matches.{id}.bets.edit', $bet->match_id, $bet->id]]) !!}
                     {{ Form::button(
                         '<i class="fa fa-pencil-square-o" aria-hidden="true"></i> ' . trans('bets.edit'), [
                         'type' => 'submit',
@@ -32,7 +32,7 @@
                     {!! Form::close() !!}
                 </td>
                 <td class="center">
-                    {!! Form::open(['method' => 'DELETE', 'route' => ['matches.{match_id}.bets.destroy', $bet->match_id, $bet->id]]) !!}
+                    {!! Form::open(['method' => 'DELETE', 'route' => ['matches.{id}.bets.destroy', $bet->match_id, $bet->id]]) !!}
                     {!! Form::button(
                         '<i class="fa fa-trash-o" aria-hidden="true"></i> ' . trans('bets.delete'), [
                         'type' => 'submit',

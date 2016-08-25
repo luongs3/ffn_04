@@ -6,7 +6,7 @@
                 {{ trans('bets.header') }}
             </div>
             {!! Form::open([
-                'route' => ['matches.{match_id}.bets.store', $match->id] ,
+                'route' => ['matches.{id}.bets.store', $match->id] ,
                 'method' => 'POST',
                 'class' => 'form-horizontal required'])
             !!}

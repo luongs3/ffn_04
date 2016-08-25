@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UpdateMatch' => [
             'App\Listeners\UpdateMatchListener',
         ],
+        'App\Events\CreateBet' => [
+            'App\Listeners\CreateBetListener',
+        ],
     ];
 
     /**

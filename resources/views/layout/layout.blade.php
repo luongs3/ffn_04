@@ -11,6 +11,7 @@
 </head>
 <body>
     <div id="fb-root"></div>
+    @include('layout.navigation')
     <div>
         <div class="col-sm-2"></div>
         <div class="col-sm-8">

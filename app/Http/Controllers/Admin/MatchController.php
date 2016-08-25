@@ -107,6 +107,7 @@ class MatchController extends Controller
             ? Carbon::parse($request->get('start_time'))->toDateTimeString() : '0000-00-00 00:00:00';
         $requestData['end_time'] = ($endTime != '0000-00-00 00:00:00' && !is_null($endTime))
             ? Carbon::parse($request->get('end_time'))->toDateTimeString() : '0000-00-00 00:00:00';
+
         $data = $this->matchRepository->update($requestData, $id);
 
         if (isset($data['error'])) {

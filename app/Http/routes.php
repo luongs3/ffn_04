@@ -24,6 +24,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::resource('teams', 'Admin\TeamController');
         Route::resource('leagues', 'Admin\LeagueController');
         Route::resource('ajax-seasons', 'Admin\AjaxSeasonController');
+        Route::resource('ajax-messages', 'Admin\AjaxAdminMessageController');
         Route::resource('seasons', 'Admin\SeasonController');
         Route::resource('ranks', 'Admin\RankController');
         Route::resource('matches', 'Admin\MatchController');
@@ -80,5 +81,8 @@ Route::resource('leagues/{id}/ranks', 'Client\LeagueRankController');
 Route::resource('leagues/{id}/schedules', 'Client\LeagueScheduleController');
 Route::resource('leagues/{id}/results', 'Client\LeagueResultController');
 Route::resource('leagues', 'Client\LeagueController');
-Route::resource('/matches/{match_id}/bets', 'UserBetsController');
-Route::get('mybets', 'UserBetsController@myBets');
+Route::resource('matches/{id}/bets', 'Client\MatchBetController');
+Route::resource('users/{id}/bets', 'Client\UserBetController');
+Route::resource('users/{id}/messages', 'Client\UserMessageController');
+Route::resource('ajax-users', 'Client\AjaxUserController');
+Route::resource('ajax-messages', 'Client\AjaxMessageController');

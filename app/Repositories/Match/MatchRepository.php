@@ -99,16 +99,16 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
     {
         try {
             $match = $this->model->find($id);
+            $input['id'] = $id;
+            event(new UpdateMatch($input));
             $match->fill($input);
             $match->save();
-
             if (!$match) {
                 return ['error' => trans('message.updating_error')];
             }
 
-            event(new UpdateMatch($match));
 
-            return $id;
+            return $match;
         } catch (Exception $ex) {
             return ['error' => $ex->getMessage()];
         }
@@ -121,5 +121,16 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
         return $this->model->where('start_time', '<', Carbon::now()->addMinutes($checkTime))
             ->where('start_time', '>', Carbon::now())
             ->get();
+    }
+
+    public function matchResult($match)
+    {
+        if ($match['score_team1'] > $match['score_team2']) {
+            return $match['team1_id'];
+        } elseif ($match['score_team1'] < $match['score_team2']) {
+            return $match['team2_id'];
+        }
+
+        return null;
     }
 }

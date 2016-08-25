@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repositories\Message;
 
 use App\Models\Match;
@@ -28,39 +27,59 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
         $this->userRepository = $userRepository;
     }
 
+    public function all($options = [])
+    {
+        try {
+            $filter = isset($options['filter']) ? $options['filter'] : [];
+            $limit = isset($options['limit']) ? $options['limit'] : config('common.limit.page_limit');
+            $data = $this->model->where($filter)->orderBy('id', 'DESC')->take($limit)->get();
+
+            if (!count($data)) {
+                return ['error' => trans('message.item_not_exist')];
+            }
+
+            return $data;
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
+    }
+
     public function alertMatchStart()
     {
-        $matches = $this->matchRepository->getRecentMatches();
+        try {
+            $matches = $this->matchRepository->getRecentMatches();
 
-        if (count($matches)) {
-            $type = config('common.message.type.match_start');
-            $checkDuplicatedMessage = $this->checkDuplicatedMessage($matches[0], $type);
+            if (count($matches)) {
+                $type = config('common.message.type.match_start');
+                $checkDuplicatedMessage = $this->checkDuplicatedMessage($matches[0], $type);
 
-            if (!$checkDuplicatedMessage) {
-                $messages = [];
-                $users = $this->userRepository->whereRole(config('common.user.role.user'));
+                if (!$checkDuplicatedMessage) {
+                    $messages = [];
+                    $users = $this->userRepository->whereRole(config('common.user.role.user'));
 
-                if (count($users)) {
-                    // create new message
-                    foreach ($matches as $match) {
-                        $content = $this->getMessageContent($type, $match);
-                        foreach ($users as $user) {
-                            $messages[] = [
-                                'user_id' => $user->id,
-                                'type' => $type,
-                                'content' => $content,
-                                'target' => $match->id,
-                            ];
+                    if (count($users)) {
+                        // create new message
+                        foreach ($matches as $match) {
+                            $content = $this->getMessageContent($type, $match);
+                            foreach ($users as $user) {
+                                $messages[] = [
+                                    'user_id' => $user->id,
+                                    'type' => $type,
+                                    'content' => $content,
+                                    'target' => $match->id,
+                                ];
+                            }
                         }
+                        $this->model->insert($messages);
+
+                        // update unread message number for all users
+                        $additionalUnreadMessage = count($matches);
+                        $this->userRepository->increaseMessage($users, $additionalUnreadMessage);
                     }
-
-                    $this->model->insert($messages);
-
-                    // update unread message number for all users
-                    $additionalUnreadMessage = count($matches);
-                    $this->userRepository->increaseMessage($users, $additionalUnreadMessage);
                 }
             }
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
         }
     }
 
@@ -73,5 +92,24 @@ class MessageRepository extends BaseRepository implements MessageRepositoryInter
         }
 
         return false;
+    }
+
+    public function store($input)
+    {
+        try {
+            $data = $this->model->create($input);
+
+            if (!$data) {
+                return ['error' => trans('message.creating_error')];
+            }
+
+            $additionalUnreadAdminMessage = 1;
+            $admins = $this->userRepository->whereRole(config('common.type.admin'));
+            $this->userRepository->increaseMessage($admins, $additionalUnreadAdminMessage);
+
+            return $data;
+        } catch (Exception $ex) {
+            return ['error' => $ex->getMessage()];
+        }
     }
 }
