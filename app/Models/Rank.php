@@ -18,11 +18,11 @@ class Rank extends Model
 
     public function season()
     {
-        return $this->belongsTo(Season::class, 'season_id');
+        return $this->belongsTo(Season::class);
     }
 
-    public function teams()
+    public function team()
     {
-        return $this->hasMany(Team::class, 'id');
+        return $this->belongsTo(Team::class);
     }
 }

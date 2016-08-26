@@ -38,11 +38,13 @@ class RepositoryServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(LeagueRepositoryInterface $leagueRepository)
     {
         view()->share('layout', 'admin.layout.layout');
         view()->share('clientLayout', 'layout.layout');
         view()->share('placeHolders', config('common.place_holders'));
+        $leagues = $leagueRepository->all();
+        view()->share('leagues', $leagues);
     }
 
     /**

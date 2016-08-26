@@ -60,6 +60,7 @@ return [
             'match_end' => 1,
             'user_bet' => 2,
             'comment_reply' => 3,
+            'user_event' => 4,
         ],
         'check_time' => 10,
         'user_message_limit' => 5,
@@ -93,6 +94,9 @@ return [
         'label_result' => [
             'win' => 'win',
             'lose' => 'lose',
-        ]
+        ],
+    ],
+    'match' => [
+        'recent_match_time' => 4320,
     ],
 ];

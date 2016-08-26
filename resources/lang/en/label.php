@@ -135,11 +135,10 @@ return [
     'sessions' => 'Sessions',
     'profile' => 'Profile',
     'events' => 'Events',
-    'delete' => 'Delete',
-    'comment' => 'Comment',
     'news' => 'News',
     'cancel' => 'Cancel',
     'result_bet' => 'Result of your bet',
     'win' => 'Win',
     'lose' => 'Lose',
+    'next_matches' => 'Next Matches',
 ];

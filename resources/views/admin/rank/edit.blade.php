@@ -9,15 +9,15 @@
     @include('layout.error')
     <div class="col-sm-8">
         <div class="form-group">
-            {!! Form::label('seasons', trans('label.seasons'), ['class' => 'control-label col-sm-2 required']) !!}
+            {!! Form::label('season', trans('label.season'), ['class' => 'control-label col-sm-2']) !!}
             <div class="col-md-9">
-                {!! Form::select('season_id', $seasons, $rank['season_id'], ['class' => 'form-control', 'placeholder' => trans('message.choose_one'), 'required' => true]) !!}
+                {!! Form::number('season_id', $rank->season_id, ['class' => 'form-control', 'readonly' => true]) !!}
             </div>
         </div>
         <div class="form-group">
-            {!! Form::label('teams', trans('label.teams'), ['class' => 'control-label col-sm-2']) !!}
+            {!! Form::label('team', trans('label.team'), ['class' => 'control-label col-sm-2']) !!}
             <div class="col-md-9">
-                {!! Form::select('team_id', $teams, $rank['team_id'], ['class' => 'form-control', 'placeholder' => trans('message.choose_one')]) !!}
+                {!! Form::number('team_id', $rank->team_id, ['class' => 'form-control', 'readonly' => true]) !!}
             </div>
         </div>
         <div class="form-group">

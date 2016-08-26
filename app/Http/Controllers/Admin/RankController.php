@@ -66,14 +66,7 @@ class RankController extends Controller
             return redirect()->route('admin.ranks.index')->withError($rank['error']);
         }
 
-        $teams = $this->teamRepository->lists();
-        $seasons = $this->seasonRepository->lists();
-
-        if (isset($seasons['error'])) {
-            return redirect()->route('admin.ranks.index')->withErrors($seasons['error']);
-        }
-
-        return view('admin.rank.edit', compact('rank', 'seasons', 'teams'));
+        return view('admin.rank.edit', compact('rank'));
     }
 
     public function update(UpdateRankRequest $request, $id)

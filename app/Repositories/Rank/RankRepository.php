@@ -7,16 +7,25 @@ use App\Models\Season;
 use App\Models\Team;
 use App\Repositories\BaseRepository;
 use App\Models\Rank;
+use App\Repositories\League\LeagueRepositoryInterface;
+use App\Repositories\Season\SeasonRepositoryInterface;
 use Exception;
-use Auth;
 use DB;
 use App\Models\Player;
 
 class RankRepository extends BaseRepository implements RankRepositoryInterface
 {
-    public function __construct(Rank $rank)
-    {
+    protected $seasonRepository;
+    protected $leagueRepository;
+
+    public function __construct(
+        Rank $rank,
+        SeasonRepositoryInterface $seasonRepository,
+        LeagueRepositoryInterface $leagueRepository
+    ) {
         $this->model = $rank;
+        $this->seasonRepository = $seasonRepository;
+        $this->leagueRepository = $leagueRepository;
     }
 
     public function index($subject, $options = [])

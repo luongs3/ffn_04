@@ -439,3 +439,30 @@ body {
 .message a:hover {
   background-color: #b9c5ef !important;
 }
+
+.navbar-brand {
+  color: #777 !important;
+  margin-left: 30px !important;
+}
+
+.match-image {
+  height: 80px;
+  width: 80px;
+}
+
+.match-content {
+  padding: 10px;
+}
+
+.recent-matches-title {
+  padding: 10px;
+}
+
+.league-image-icon {
+  height: 50px;
+  width: 50px;
+}
+
+.match-box {
+  clear: both;
+}

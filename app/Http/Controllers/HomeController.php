@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
-use Illuminate\Http\Request;
+use App\Repositories\Match\MatchRepositoryInterface;
 use Auth;
 use App\Repositories\Post\PostRepositoryInterface;
 
 class HomeController extends Controller
 {
     protected $postRepository;
+    protected $matchRepository;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(PostRepositoryInterface $postRepository)
-    {
+    public function __construct(
+        PostRepositoryInterface $postRepository,
+        MatchRepositoryInterface $matchRepository
+    ) {
         $this->postRepository = $postRepository;
+        $this->matchRepository = $matchRepository;
     }
 
     /**
@@ -29,7 +32,9 @@ class HomeController extends Controller
     {
         $posts = $this->postRepository->index();
 
-        return view('home', ['posts' => $posts]);
+        $recentMatches = $this->matchRepository->getHomeViewMatches();
+
+        return view('home', ['posts' => $posts, 'recentMatches' => $recentMatches]);
     }
 
     public function getLogout()
