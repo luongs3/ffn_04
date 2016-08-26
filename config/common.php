@@ -81,4 +81,18 @@ return [
         'win' => 1,
         'lose' => 0,
     ],
+    'user_bet' => [
+        'result' => [
+            'win' => 1,
+            'lose' => 0,
+        ],
+        'point' => [
+            'win' => 2,
+            'lose' => 0,
+        ],
+        'label_result' => [
+            'win' => 'win',
+            'lose' => 'lose',
+        ]
+    ],
 ];

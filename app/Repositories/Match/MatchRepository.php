@@ -9,13 +9,16 @@ use App\Repositories\BaseRepository;
 use App\Models\Match;
 use Exception;
 use DB;
-use App\Models\Player;
+use App\Repositories\Team\TeamRepository;
 
 class MatchRepository extends BaseRepository implements MatchRepositoryInterface
 {
-    public function __construct(Match $match)
+    protected $teamRepository;
+
+    public function __construct(Match $match, TeamRepository $teamRepository)
     {
         $this->model = $match;
+        $this->teamRepository = $teamRepository;
     }
 
     public function index($subject, $options = [])
@@ -103,6 +106,37 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             event(new UpdateMatch($input));
             $match->fill($input);
             $match->save();
+
+            if (isset($input['end_time'] && $input['score_team1'] && $input['score_team2'])) {
+                $users = $match->users;
+                $option = $this->option;
+
+                if ((integer)$input['score_team2'] <= (integer)$input['score_team1']) {
+                    $teamWin = $match->team1_id;
+                } else {
+                    $teamWin = $match->team2_id;
+                }
+
+                foreach ($users as $user) {
+                    $teamId = $user->pivot->team_id;
+                    $betData['name'] = $user->name;
+                    $betData['email'] = $user->email;
+                    $betData['team'] = $this->teamRepository->find($teamId)->name;
+
+                    if ($teamId === $teamWin) {
+                        $betData['result'] = $option[config('common.user_bet.result.win')];
+                        $betData['point'] = $user->point + ($user->pivot->point * config('common.user_bet.point.win'));
+                    }
+
+                    $betData['point'] = $user->point - $user->pivot->point;
+                    $betData['result'] = $option[config('common.user_bet.result.lose')];
+
+                    Mail::send('emails.result_bet', $betData, function ($message) use ($betData) {
+                        $message->to($betData['email'], $betData['name'])->subject(trans('label.result_bet'));
+                    });
+                }
+            }
+
             if (!$match) {
                 return ['error' => trans('message.updating_error')];
             }
@@ -132,5 +166,16 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
         }
 
         return null;
+    }
+
+    public function option()
+    {
+        $option = [];
+
+        foreach (config('common.user_bet.result') as $key => $value) {
+            $option[$value] = trans(config('common.user_bet.label_result.' . $key));
+        }
+
+        return $option;
     }
 }

@@ -54,4 +54,9 @@ return [
     'message_user_bet' => 'User :user made a bet on match :match, at :created_at',
     'message_default' => 'Incorrect message type, please try again',
     'login_page' => 'Please login with your account to comment',
+    'hi' => 'Hi, :name',
+    'thanks' => 'Thank you for your participation betting game.',
+    'bet_team' => 'You have to bet the team :team',
+    'bet_result' => 'The result is your bet :result',
+    'bet_point' => 'Total points accumulated in your account is :point'
 ];

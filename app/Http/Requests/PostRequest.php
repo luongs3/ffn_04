@@ -25,7 +25,7 @@ class PostRequest extends Request
     public function rules()
     {
         $date = Carbon::now();
-        $isPost = config('common.post.is_published');
+        $notPost = config('common.post.un_published');
 
         return [
             'title' => 'required|max:255',
@@ -34,7 +34,7 @@ class PostRequest extends Request
             'category_id' => 'required',
             'league_id' => 'required',
             'image' => 'image|mimes:jpeg,jpg,bmp,png,gif|max:2048',
-            'published_at' => "required_if:is_post,$isPost|after:$date",
+            'published_at' => "required_if:is_post,$notPost|after:$date",
         ];
     }
 }

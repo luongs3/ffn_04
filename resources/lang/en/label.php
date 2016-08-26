@@ -139,4 +139,7 @@ return [
     'comment' => 'Comment',
     'news' => 'News',
     'cancel' => 'Cancel',
+    'result_bet' => 'Result of your bet',
+    'win' => 'Win',
+    'lose' => 'Lose',
 ];
