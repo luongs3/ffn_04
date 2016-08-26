@@ -20,6 +20,7 @@
     {!! Html::script('/bower/masonry/dist/masonry.pkgd.min.js') !!}
     {!! Html::script('/bower/sweetalert/dist/sweetalert.min.js') !!}
     {!! Html::script('/js/comment_facebook.js') !!}
+    {!! Html::script('/js/like_share_button.js') !!}
     {!! Html::script('/js/comment.js') !!}
     @include('sweet::alert')
     @yield('script')

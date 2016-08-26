@@ -14,6 +14,9 @@
                             <li><i class="fa fa-user"></i> {{ $post->user->name }}</li>
                             <li><i class="fa fa-folder-open"></i>{{ trans('label.news') }}</li>
                             <li><i class="fa fa-comments"></i> {{ trans('news.comments', ['comments' => count($comments)]) }}</li>
+                            <li>
+                                <div class="fb-like" data-href="{{ action('NewsController@show', [$post->slug]) }}" data-layout="button_count" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+                            </li>
                         </ul>
                         <div class="news-post-content">
                             {!! $post->content !!}
