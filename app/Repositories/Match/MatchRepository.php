@@ -107,9 +107,9 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             $match->fill($input);
             $match->save();
 
-            if (isset($input['end_time'] && $input['score_team1'] && $input['score_team2'])) {
+            if (isset($input['end_time']) && isset($input['score_team1']) && isset($input['score_team2'])) {
                 $users = $match->users;
-                $option = $this->option;
+                $option = $this->option();
 
                 if ((integer)$input['score_team2'] <= (integer)$input['score_team1']) {
                     $teamWin = $match->team1_id;
