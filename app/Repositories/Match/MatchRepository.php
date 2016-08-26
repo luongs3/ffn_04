@@ -10,6 +10,8 @@ use App\Models\Match;
 use Exception;
 use DB;
 use App\Repositories\Team\TeamRepository;
+use Carbon\Carbon;
+use Mail;
 
 class MatchRepository extends BaseRepository implements MatchRepositoryInterface
 {
@@ -107,9 +109,9 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
             $match->fill($input);
             $match->save();
 
-            if (isset($input['end_time'] && $input['score_team1'] && $input['score_team2'])) {
+            if (isset($input['end_time']) && isset($input['score_team1']) && isset($input['score_team2'])) {
                 $users = $match->users;
-                $option = $this->option;
+                $option = $this->option();
 
                 if ((integer)$input['score_team2'] <= (integer)$input['score_team1']) {
                     $teamWin = $match->team1_id;
@@ -148,9 +150,9 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
         }
     }
 
-    public function getRecentMatches()
+    public function getRecentMatches($time = null)
     {
-        $checkTime = config('common.message.check_time');
+        $checkTime = is_null($time) ? config('common.message.check_time') : $time;
 
         return $this->model->where('start_time', '<', Carbon::now()->addMinutes($checkTime))
             ->where('start_time', '>', Carbon::now())
@@ -177,5 +179,19 @@ class MatchRepository extends BaseRepository implements MatchRepositoryInterface
         }
 
         return $option;
+    }
+
+    public function getHomeViewMatches()
+    {
+        $time = config('common.match.recent_match_time');
+
+        $recentMatches = $this->getRecentMatches($time);
+
+        if (count($recentMatches)) {
+            foreach ($recentMatches as $key => $match) {
+                $recentMatches[$key] = $this->getMatchName($match);
+            }
+        }
+        return $recentMatches;
     }
 }

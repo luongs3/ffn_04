@@ -14,7 +14,7 @@ use DB;
 
 class UserBetRepository extends BaseRepository implements UserBetRepositoryInterface
 {
-    protected  $matchRepository;
+    protected $matchRepository;
 
     public function __construct(
         UserBet $userBet,
