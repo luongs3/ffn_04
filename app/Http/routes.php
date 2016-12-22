@@ -27,6 +27,7 @@ Route::group(['middleware' => 'admin'], function () {
         Route::resource('ajax-messages', 'Admin\AjaxAdminMessageController');
         Route::resource('seasons', 'Admin\SeasonController');
         Route::resource('ranks', 'Admin\RankController');
+        Route::get('matches/crawler', 'Admin\MatchController@crawler');
         Route::resource('matches', 'Admin\MatchController');
         Route::resource('matches/{id}/match-events','Admin\EventMatchController');
         Route::resource('/seasons/{id}/matches', 'Admin\MatchSeasonController');
@@ -44,6 +45,15 @@ Route::get('/logout', 'HomeController@getLogout');
 Route::get('/register', 'Auth\AuthController@getRegister');
 Route::post('/register', ['as' => 'register', 'uses' => 'Auth\AuthController@postRegister']);
 Route::get('/register/verify/{confirmationCode}', 'Auth\AuthController@confirm');
+// OAuth for pets site
+Route::group(['prefix' => 'openAuth', 'middleware' => 'web'], function() {
+    Route::get('{provider}', [
+        'as' => '{provider}.login',
+        'uses' => 'Auth\OAuthController@redirect'
+    ]);
+    Route::get('{provider}/callback', 'Auth\OAuthController@callback');
+});
+
 Route::group(['prefix' => 'auth', 'middleware' => 'web'], function() {
     Route::get('/{social}', [
         'as' => '{social}.login',
@@ -86,3 +96,20 @@ Route::resource('users/{id}/bets', 'Client\UserBetController');
 Route::resource('users/{id}/messages', 'Client\UserMessageController');
 Route::resource('ajax-users', 'Client\AjaxUserController');
 Route::resource('ajax-messages', 'Client\AjaxMessageController');
+
+Route::get('/test/{provider}/get-wam', function($provider) {
+    $cookieName = "userAccessToken_" . $provider . "_" . auth()->user()->id;
+    $accessToken = $_COOKIE[$cookieName];
+    $http = new GuzzleHttp\Client;
+    $response = $http->get('http://local-pets.com/api/wam', [
+        'headers' => [
+            'accept' => 'application/json',
+            'authorization' => 'Bearer ' . $accessToken,
+        ],
+    ]);
+    $providersUser = json_decode ( $response->getBody(), true);
+});
+
+Route::get('/test/oauth2', 'TestController@test');
+Route::get('/testCallback/{provider}/{resource_id}', 'TestController@testCallback');
+

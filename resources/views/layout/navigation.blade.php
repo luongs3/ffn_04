@@ -31,6 +31,7 @@
                         </a>
                     </li>
                 @else
+                    {{ \Debugbar::disable() }}
                     <li class="">
                         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                             <img src="{{ asset(Auth::user()->avatar) }}" alt="">

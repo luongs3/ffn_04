@@ -14,3 +14,13 @@ var elixir = require('laravel-elixir');
 elixir(function(mix) {
     mix.sass('app.scss');
 });
+
+elixir(function(mix) {
+    mix.scripts(
+        [
+            './node_modules/socket.io/lib/socket.js',
+            './node_modules/express/lib/express.js',
+        ],
+        './public/js/node.js'
+    );
+});

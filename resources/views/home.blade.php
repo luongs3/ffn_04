@@ -1,5 +1,4 @@
 @extends($clientLayout)
-
 @section('content')
 <div class="container">
     <div class="row">

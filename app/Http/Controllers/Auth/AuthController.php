@@ -44,7 +44,7 @@ class AuthController extends Controller
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
         $this->userRepository = $userRepository;
-    }
+    }   
 
     /**
      * Get a validator for an incoming registration request.

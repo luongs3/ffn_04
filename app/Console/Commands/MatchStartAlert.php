@@ -40,6 +40,7 @@ class MatchStartAlert extends Command
      */
     public function handle()
     {
+        \Log::info('aaa');
         $this->messageRepository->alertMatchStart();
     }
 }

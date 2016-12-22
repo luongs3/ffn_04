@@ -147,6 +147,14 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        Weidner\Goutte\GoutteServiceProvider::class,
+        willvincent\Feeds\FeedsServiceProvider::class,
+        Collective\Html\HtmlServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -156,12 +164,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
-        Laravel\Socialite\SocialiteServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
 
     ],
 
@@ -214,6 +216,8 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
+        'Goutte' => Weidner\Goutte\GoutteFacade::class,
+        'Feeds'    => willvincent\Feeds\Facades\FeedsFacade::class,
 
     ],
 

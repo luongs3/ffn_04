@@ -1,5 +1,6 @@
 var messageTypes = $('#user-message').data('type');
 var defaultData = $('#user-message').data('default');
+
 var Message = React.createClass({
     render: function () {
         switch (this.props.type) {
@@ -49,24 +50,35 @@ var Message = React.createClass({
 });
 
 var messages = $('#user-message').data('messages');
+var userId = $('#user-message').data('user-id');
+
 var MessageBox = React.createClass({
     getMessages: function () {
-        $.ajax({
-            type: 'GET',
-            url: this.props.url,
-            cache: false,
-            success: function (data, status) {
-                this.setState({data: data.messages, number: data.user.unread_message_number});
-            }.bind(this)
-        });
+        // $.ajax({
+        //     type: 'GET',
+        //     url: this.props.url,
+        //     cache: false,
+        //     success: function (data, status) {
+        //         this.setState({data: data.messages, number: data.user.unread_message_number});
+        //     }.bind(this)
+        // });
+        if (typeof userId !== 'undefined') {
+            var socket = io.connect( 'http://localhost:8000/', { query: "userId=" + userId });
+            var self = this;
+            socket.on('notification', function (data) {
+                console.log(data);
+                self.setState({data: data.messages, number: data.user.unread_message_number});
+            });
+        }
     },
+
     getInitialState() {
         return {data: []}
     },
     componentDidMount: function () {
-        //call automatically after a component is rendered.
+        // call automatically after a component is rendered.
         this.getMessages();
-        setInterval(this.getMessages, this.props.pollInterval);
+        // setInterval(this.getMessages, this.props.pollInterval);
     },
     render: function () {
         return (
@@ -111,9 +123,9 @@ var MessageList = React.createClass({
 });
 
 var url = $('#user-message').data('url');
-var userId = $('#user-message').data('user-id');
 var userUrl = $('#user-message').data('user-url');
 var unreadMessageNumber = $('#user-message').data('unread-message-number');
+
 ReactDOM.render(
     <MessageBox url={url} pollInterval={5000} userId={userId} unreadMessageNumber={unreadMessageNumber}/>,
     document.getElementById('user-message')

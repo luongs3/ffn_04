@@ -49,6 +49,10 @@
                                     <i class="fa fa-github fa-fw"></i>
                                     {{ trans('label.github') }}
                                 </a>
+                                <a class="btn btn-primary" href="{{ url('openAuth/pets') }}">
+                                    <i class="fa fa-facebook-official fa-fw"></i>
+                                    {{ trans('label.pets') }}
+                                </a>
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">
                                     {{ trans('label.reset_password') }}
                                 </a>

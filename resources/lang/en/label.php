@@ -10,6 +10,7 @@ return [
     'detail' => 'Detail',
     'create' => 'Create',
     'id' => 'Id',
+    'pets' => 'Pets',
     'name' => 'Name',
     'description' => 'Description',
     'no' => 'No',

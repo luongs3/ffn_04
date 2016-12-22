@@ -53,7 +53,7 @@ var MessageBox = React.createClass({
     componentDidMount: function () {
         //call automatically after a component is rendered.
         this.getMessages();
-        setInterval(this.getMessages, this.props.pollInterval);
+        // setInterval(this.getMessages, this.props.pollInterval);
     },
     render: function () {
         return (

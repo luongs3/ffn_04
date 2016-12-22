@@ -15,7 +15,13 @@
         "laravelcollective/bus": "^5.2",
         "barryvdh/laravel-ide-helper": "^2.2",
         "guzzlehttp/guzzle": "~5.0|~6.0",
-        "uxweb/sweet-alert": "~1.1"
+        "uxweb/sweet-alert": "~1.1",
+        "weidner/goutte": "@dev",
+        "willvincent/feeds": "^1.0",
+        "awjudd/feed-reader": "1.3.*",
+        "aws/aws-sdk-php": "~3.0",
+        "pda/pheanstalk": "~3.0",
+        "predis/predis": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

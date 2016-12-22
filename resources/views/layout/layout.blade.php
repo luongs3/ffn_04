@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -10,18 +11,18 @@
     @include('layout.styles')
 </head>
 <body>
-    <div id="fb-root"></div>
-    @include('layout.navigation')
-    <div>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-10">
-            <section>
-                @include('layout.result')
-                @yield('content')
-            </section>
-        </div>
+<div id="fb-root"></div>
+@include('layout.navigation')
+<div>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-10">
+        <section>
+            @include('layout.result')
+            @yield('content')
+        </section>
     </div>
-    @include('layout.scripts')
-    @yield('script')
+</div>
+@include('layout.scripts')
+@yield('script')
 </body>
 </html>

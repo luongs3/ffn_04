@@ -10,6 +10,10 @@ use App\Repositories\League\LeagueRepositoryInterface;
 use App\Repositories\Season\SeasonRepositoryInterface;
 use Carbon\Carbon;
 use App\Repositories\MatchEvent\MatchEventRepositoryInterface;
+use Goutte;
+use Feeds;
+use simple_html_dom;
+require_once '/var/www/html/ffn_04/simple_html_dom.php';
 
 class MatchController extends Controller
 {
@@ -142,5 +146,35 @@ class MatchController extends Controller
         $data = $this->matchEventRepository->all($options);
 
         return response()->json($data);
+    }
+
+    public function crawler()
+    {
+        $html = file_get_html('https://www.premierleague.com/results');
+        $premierLeagueSchedule = $html->find('.fixtures');
+        dd($html->outertext);
+        $time = $premierLeagueSchedule->find('.long');
+        dd($time);
+//        dd($premierLeague);
+//        $htmlData['team1'] = $premierLeague->find('.mElO1 a');
+//        $htmlData['team2'] = $premierLeague->find('.mElO2 a');
+//        $htmlData['score'] = $premierLeague->find('.mElScore a');
+
+        foreach ($htmlData['team1'] as $key => $item) {
+            $data[$key]['team1_id'] = $htmlData['team1'][$key]->text();
+            $data[$key]['team2_Id'] = $htmlData['team2'][$key]->text();
+            $score = str_split($htmlData['score'][$key]->text());
+            $data[$key]['score_team1'] = $score[0];
+            $data[$key]['score_team2'] = $score[4];
+        }
+
+        //get team_id from team name
+
+        dd($data);
+    }
+
+    public function getTeamIdFromName($league)
+    {
+
     }
 }

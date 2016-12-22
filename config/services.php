@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
+        'model' => App\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
@@ -52,4 +52,9 @@ return [
         'client_secret' => env('GITHUB_SECRECT'),
         'redirect' => env('GITHUB_CALLBACK_URL'),
     ],
+    'pets' => [
+        'client_id' => env('PETS_ID'),
+        'client_secret' => env('PETS_SECRECT'),
+        'redirect' => env('PETS_CALLBACK_URL'),
+    ]
 ];

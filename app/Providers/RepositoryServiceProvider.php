@@ -33,6 +33,7 @@ use App\Repositories\AdminMessage\AdminMessageRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
+    protected $defer = true;
     /**
      * Bootstrap the application services.
      *
@@ -67,5 +68,10 @@ class RepositoryServiceProvider extends ServiceProvider
         App::bind(ExportRepositoryInterface::class, ExportRepository::class);
         App::bind(CommentRepositoryInterface::class, CommentRepository::class);
         App::bind(AdminMessageRepositoryInterface::class, AdminMessageRepository::class);
+    }
+
+    public function provides()
+    {
+        return [UserRepositoryInterface::class];
     }
 }
